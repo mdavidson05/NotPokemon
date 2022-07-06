@@ -41,6 +41,6 @@ public enum PokemonConstructor {
 //        return pokemonTypes;
 //    }
 
-    PokemonConstructor[] pokemon = PokemonConstructor.values();
+//    PokemonConstructor[] pokemon = PokemonConstructor.values();
 
 }

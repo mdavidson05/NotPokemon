@@ -1,13 +1,13 @@
 package characters;
 
-import handlers.Item;
+import items.Item;
 import pokemon.Pokemon;
 
 import java.util.ArrayList;
 
 public abstract class Character {
 
-    private String name;
+    public String name;
     private double money;
     ArrayList<Item> items;
     ArrayList<Pokemon> party;

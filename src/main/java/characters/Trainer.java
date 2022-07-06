@@ -1,14 +1,19 @@
+//package characters;
+//
+//import items.Item;
+//import pokemon.Pokemon;
+//
 //import java.util.ArrayList;
 //
 //public abstract class Trainer extends characters.Character{
 //
-//    ArrayList<Handlers.Pokemon> pokedex; //pokedex might need to be another class
-//    protected ArrayList<Handlers.Pokemon> party = new ArrayList<>();
-//    private Handlers.Pokemon stagedPokemon = null;
+//    ArrayList<pokemon.Pokemon> pokedex; //pokedex might need to be another class
+//    protected ArrayList<pokemon.Pokemon> party = new ArrayList<>();
+//    private pokemon.Pokemon stagedPokemon = null;
 ////    protected  BattleSlot ownedSlot; will probably need a slot for the current pokemon on field
 ////    protected BattleSlot enemySlot;
 //
-//    public Trainer(String name, double money, ArrayList<Handlers.Item> items, ArrayList<Handlers.Pokemon> party, ArrayList<Handlers.Pokemon> pokedex, ArrayList<Handlers.Pokemon> party1, Handlers.Pokemon stagedPokemon, BattleSlot ownedSlot, BattleSlot enemySlot) {
+//    public Trainer(String name, double money, ArrayList<Item> items, ArrayList<pokemon.Pokemon> party, ArrayList<pokemon.Pokemon> pokedex, ArrayList<pokemon.Pokemon> party1, pokemon.Pokemon stagedPokemon, BattleSlot ownedSlot, BattleSlot enemySlot) {
 //        super(name, money, items, party);
 //        this.pokedex = pokedex;
 //        this.party = party1;
@@ -18,18 +23,18 @@
 //    }
 //
 //    //add pokemons to trainer party
-//    public Trainer(String name, Handlers.Pokemon[] pokemons) {
-//            name = trainerName;
-//            for (Handlers.Pokemon pokemon:pokemons) {
+//    public Trainer(String name, pokemon.Pokemon[] pokemons) {
+//            name = name;
+//            for (pokemon.Pokemon pokemon:pokemons) {
 //                party.add(pokemon);
 //            }
 //        }
-//        public  Handlers.Pokemon getStagedPokemon(){
+//        public  pokemon.Pokemon getStagedPokemon(){
 //            return  stagedPokemon;
 //        }
 //
 //        public boolean canFight() {
-//            for (Handlers.Pokemon pokemon:party) {
+//            for (pokemon.Pokemon pokemon:party) {
 //                if(!pokemon.hasFainted())
 //                    return true;
 //            }
@@ -37,7 +42,7 @@
 //        }
 //
 //        public boolean canSwap(){
-//            for (Handlers.Pokemon pokemon:party) {
+//            for (pokemon.Pokemon pokemon:party) {
 //                if(!pokemon.hasFainted() && pokemon != getStagedPokemon())
 //                    return  true;
 //                else{
@@ -48,11 +53,11 @@
 //        }
 //        public void swapPokemon(){
 //            System.out.println(getStagedPokemon().name + " was recalled");
-//            Handlers.Pokemon pokemonToSwapWith = sendOutFirstAvailablePokemon();
+//            pokemon.Pokemon pokemonToSwapWith = sendOutFirstAvailablePokemon();
 //            swapPokemon(pokemonToSwapWith);
 //        }
 //
-//        public void swapPokemon(Handlers.Pokemon pokemonToSwapWith ){
+//        public void swapPokemon(pokemon.Pokemon pokemonToSwapWith ){
 //            if(pokemonToSwapWith == null)
 //                System.out.println("swap failed");
 //            else{
@@ -61,8 +66,8 @@
 //            }
 //        }
 //
-//        public Handlers.Pokemon sendOutFirstAvailablePokemon(){//get first not dead pokemon that's not already sent out or return null,
-//            for (Handlers.Pokemon pokemon :party) {
+//        public pokemon.Pokemon sendOutFirstAvailablePokemon(){//get first not dead pokemon that's not already sent out or return null,
+//            for (pokemon.Pokemon pokemon :party) {
 //                if(!pokemon.hasFainted() && stagedPokemon != pokemon) {
 //                    return pokemon;
 //                }
@@ -70,8 +75,8 @@
 //            return  null;
 //        }
 //
-//        public Handlers.Pokemon stageFirstAvailablePokemon(){// used for getting pokemon to send out first in battle//also stages the mon
-//            Handlers.Pokemon p = sendOutFirstAvailablePokemon();
+//        public pokemon.Pokemon stageFirstAvailablePokemon(){// used for getting pokemon to send out first in battle//also stages the mon
+//            pokemon.Pokemon p = sendOutFirstAvailablePokemon();
 //            stagedPokemon = p;
 //            System.out.println(name+"sending poke "+ p.name);
 //            return stagedPokemon;

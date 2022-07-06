@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
 public class TileManager {
 
     GamePanel gamePanel;
-    Tile[] tile;
-    int mapTileNumber[][];
+    public Tile[] tile;
+    public int[][] mapTileNumber;
 
     //NewBarkTown
     //320x288
@@ -30,24 +30,30 @@ public class TileManager {
         try {
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png"));
+            tile[0].collision = true;
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Roof.png"));
+            tile[1].collision = true;
 
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Grass.png"));
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/window BR.png"));
+            tile[3].collision = true;
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/window BL.png"));
+            tile[4].collision = true;
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Building.png"));
+            tile[5].collision = true;
 
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Sign.png"));
+            tile[6].collision = true;
 
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Door.png"));
@@ -57,6 +63,7 @@ public class TileManager {
 
             tile[9] = new Tile();
             tile[9].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Water.png"));
+            tile[9].collision = true;
 
 
         }
@@ -118,7 +125,7 @@ public class TileManager {
             worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY){
 
                 graphics2.drawImage(tile[tileNumber].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
-
+//should be screenX and Screen Y instead of 0, 0
             }
 
             worldCol++;

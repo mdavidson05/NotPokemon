@@ -1,5 +1,6 @@
 package handlers;
 
+import characters.CollisionCheck;
 import characters.Player;
 
 import javax.swing.JPanel;
@@ -12,13 +13,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 20;
-    final int maxScreenRow = 18;
+    final int maxScreenRow = 19;
     public final int screenWidth = tileSize*maxScreenCol; //SHOULD BE 768 PIXELS
     public final int screenHeight = tileSize*maxScreenRow; //SHOULD BE 576 PIXELS
 
     //WORLD SETTINGS
     public final int maxWorldCol = 20;
-    public final int maxWorldRow = 18;
+    public final int maxWorldRow = 19;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
     //FPS
@@ -27,7 +28,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     public Player player = new Player(this, keyHandler);
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
+    public CollisionCheck collisionCheck = new CollisionCheck(this);
 
 //    //Set default player location testing
 //    int playerPositionX = 100;
@@ -68,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
                 delta --;
             }
+            //Sleep method (doesn't work)
 //            System.out.println(playerPositionX);
 //            System.out.println(playerPositionY);
         }

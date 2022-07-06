@@ -1,8 +1,13 @@
 package pokemon;
 
+import moves.Moves;
+import moves.StartingMoves;
+
+import java.util.ArrayList;
+
 public abstract class Pokemon {
 
-    private String name;
+    public String name;
     private int hp;
     private int level;
     PokemonTypes pokemonTypes;
@@ -18,11 +23,53 @@ public abstract class Pokemon {
         this.awake = awake;
     }
 
+    public String getName() {
 
-    public boolean hasFainted(){
-        if (hp <= 0) {
-            this.awake = false;
-        }
-        return this.awake;
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public PokemonTypes getPokemonTypes() {
+        return pokemonTypes;
+    }
+
+    public void setPokemonTypes(PokemonTypes pokemonTypes) {
+        this.pokemonTypes = pokemonTypes;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public boolean isAwake() {
+        return awake;
+    }
+
+    public void setAwake(boolean awake) {
+        this.awake = awake;
+    }
+
 }

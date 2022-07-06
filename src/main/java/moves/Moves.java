@@ -1,4 +1,4 @@
-package handlers;
+package moves;
 
 public class Moves {
 
@@ -8,9 +8,10 @@ public class Moves {
     private int pp;
     private int priority;
     private String type;
-    Moves scratch;
+    private String name;
 
-    public Moves(int accuracy, int basePower, String category, int pp, int priority, String type) {
+    public Moves(String name, int accuracy, int basePower, String category, int pp, int priority, String type) {
+        this.name = name;
         this.accuracy = accuracy;
         this.basePower = basePower;
         this.category = category;
@@ -19,11 +20,7 @@ public class Moves {
         this.type = type;
     }
 
-    public Moves scratch(){
-        scratch = new Moves(100, 40, "Physical", 35, 0, "Normal");
-        return scratch;
 
-    }
 }
 
 
