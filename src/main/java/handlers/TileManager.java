@@ -2,6 +2,7 @@ package handlers;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,46 +32,34 @@ public class TileManager {
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png"));
             tile[0].collision = true;
-
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Roof.png"));
-            tile[1].collision = true;
-
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Grass.png"));
-
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/window BR.png"));
-            tile[3].collision = true;
-
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/window BL.png"));
-            tile[4].collision = true;
-
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Building.png"));
-            tile[5].collision = true;
-
-            tile[6] = new Tile();
-            tile[6].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Sign.png"));
-            tile[6].collision = true;
-
-            tile[7] = new Tile();
-            tile[7].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Door.png"));
-
-            tile[8] = new Tile();
-            tile[8].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Sand.png"));
-
-            tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Water.png"));
-            tile[9].collision = true;
-
+            setup(0, "tree", true);
+            setup(1, "Roof", true);
+            setup(2, "Grass", false);
+            setup(3, "window BR", true);
+            setup(4, "window BL", true);
+            setup(5, "Building", true);
+            setup(6, "Sign", true);
+            setup(7, "Door", false);
+            setup(8, "Sand", false);
+            setup(9, "water", true);
 
         }
         catch(IOException e){
             e.printStackTrace();
         }
 
+    }
+    public void setup(int index, String imagePath, boolean collision){
+        Scaling scaling = new Scaling();
+        try {
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/"+imagePath+".png"));
+            tile[index].image = scaling.scaleImage(tile[index].image, gamePanel.tileSize, gamePanel.tileSize);
+            tile[index].collision = collision;
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void loadMap() {

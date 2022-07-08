@@ -34,4 +34,5 @@ public abstract class Character {
     public ArrayList<Pokemon> getParty() {
         return party;
     }
+
 }

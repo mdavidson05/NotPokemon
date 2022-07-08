@@ -3,12 +3,12 @@ package items;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Item extends SuperItem{
+public class Door extends SuperItem{
 
-    public Item(){
-        name = "item";
+    {
+        name = "door";
         try {
-            image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Items/Item.png"));
+            image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/Door.png"));
         } catch(IOException e){
             e.printStackTrace();
         }

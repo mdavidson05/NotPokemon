@@ -1,7 +1,9 @@
 package handlers;
 
 import characters.CollisionCheck;
+import characters.Entity;
 import characters.Player;
+import items.SuperItem;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -26,10 +28,17 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     Thread gameThread;
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(this);
     public Player player = new Player(this, keyHandler);
     public TileManager tileManager = new TileManager(this);
     public CollisionCheck collisionCheck = new CollisionCheck(this);
+    public SuperItem item[] = new SuperItem[10]; //CAN DISPLAY UP 10 X MANY OBJECTS AT THE SAME TIME.
+    public ItemSetter itemSetter = new ItemSetter(this);
+    public UI ui = new UI(this);
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public Entity npc[] = new Entity[10];
 
 //    //Set default player location testing
 //    int playerPositionX = 100;
@@ -42,6 +51,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // this improves better gaming performance
         this.addKeyListener(keyHandler);
         this.setFocusable(true); // Handlers.GamePanel can be "focused" to recieve key input? Still unclear on what it does
+    }
+
+    public void setupGame(){
+        itemSetter.setItem();
+        itemSetter.setNPC();
+
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -82,7 +98,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        player.update();
+        if(gameState == playState) {
+            player.update();
+            //NPC
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    npc[i].update();
+                }
+            }
+        }
+        if(gameState == pauseState){
+
+        }
     }
 
 
@@ -90,8 +117,39 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(graphics); //super as paint component extends from paintComponent class in Java
 
         Graphics2D graphics2 = (Graphics2D)graphics; //change graphics to 2D as this has in-built functions that i NEED
+
+        long drawStart = 0;
+        if(keyHandler.checkDrawTime == true){
+            drawStart = System.nanoTime();
+        }
+        drawStart = System.nanoTime();
+
         tileManager.draw(graphics2);
+
+        for(int i = 0; i < item.length; i++){
+            if(item[i] != null){
+                item[i].draw(graphics2,this);
+
+            }
+        }
+        //Draw new NPC
+        for(int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                npc[i].draw(graphics2);
+            }
+        }
         player.draw(graphics2);
+
+        ui.draw(graphics2);
+
+        //Find the time taken to draw a tile
+        if (keyHandler.checkDrawTime == true) {
+            long drawEnd = System.nanoTime();
+            long timePassed = drawEnd - drawStart;
+            graphics2.setColor(Color.white);
+            graphics2.drawString("Draw Time: " + timePassed, 10, 400);
+            System.out.println("Draw Time: " + timePassed);
+        }
         graphics2.dispose(); //works without this line but saves memory. Good practice
 
     }
