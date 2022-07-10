@@ -13,7 +13,7 @@ public class TileManager {
     GamePanel gamePanel;
     public Tile[] tile;
     public int[][] mapTileNumber;
-
+    String imagePath;
     //NewBarkTown
     //320x288
     //320/16 x 288/16 = 20x18px
@@ -24,14 +24,15 @@ public class TileManager {
         tile = new Tile[10]; // will expand when developing more areas
         mapTileNumber = new int [gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
-        loadMap();
+        imagePath = "Maps/NewBarkTownMap.txt";
+        loadMap(imagePath);
     }
     public void getTileImage() {
 
-        try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png"));
-            tile[0].collision = true;
+//        try {
+//            tile[0] = new Tile();
+//            tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png"));
+//            tile[0].collision = true;
             setup(0, "tree", true);
             setup(1, "Roof", true);
             setup(2, "Grass", false);
@@ -43,10 +44,10 @@ public class TileManager {
             setup(8, "Sand", false);
             setup(9, "water", true);
 
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+//        }
+//        catch(IOException e){
+//            e.printStackTrace();
+//        }
 
     }
     public void setup(int index, String imagePath, boolean collision){
@@ -62,10 +63,14 @@ public class TileManager {
         }
     }
 
-    public void loadMap() {
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void loadMap(String imagePath) {
 
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("Maps/NewBarkTownMap.txt");
+            InputStream is = getClass().getClassLoader().getResourceAsStream(imagePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;

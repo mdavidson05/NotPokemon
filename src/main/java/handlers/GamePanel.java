@@ -27,18 +27,38 @@ public class GamePanel extends JPanel implements Runnable {
     //FPS
     int FPS = 60;
 
+    //Timein Game
     Thread gameThread;
-    KeyHandler keyHandler = new KeyHandler(this);
+    //User Input
+    public KeyHandler keyHandler = new KeyHandler(this);
+    //Player
     public Player player = new Player(this, keyHandler);
+    //Tile Manager
     public TileManager tileManager = new TileManager(this);
+    //Collision checker
     public CollisionCheck collisionCheck = new CollisionCheck(this);
+    //Items
     public SuperItem item[] = new SuperItem[10]; //CAN DISPLAY UP 10 X MANY OBJECTS AT THE SAME TIME.
     public ItemSetter itemSetter = new ItemSetter(this);
+    //UI
     public UI ui = new UI(this);
+    //NPCs
+    public Entity npc[] = new Entity[10];
+    //EventHandller
+    public EventHandler eventHandler = new EventHandler(this);
+
+    //GameStates
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
-    public Entity npc[] = new Entity[10];
+    public final int dialogueState =3;
+    public final int titleState = 0;
+    public final int profOakLabState =4;
+
+    //maps
+    public final int maxMap = 10;
+    public int currentMap = 0;
+
 
 //    //Set default player location testing
 //    int playerPositionX = 100;
@@ -57,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
         itemSetter.setItem();
         itemSetter.setNPC();
 
-        gameState = playState;
+        gameState = titleState;
     }
 
     public void startGameThread() {
@@ -122,25 +142,32 @@ public class GamePanel extends JPanel implements Runnable {
         if(keyHandler.checkDrawTime == true){
             drawStart = System.nanoTime();
         }
-        drawStart = System.nanoTime();
-
-        tileManager.draw(graphics2);
-
-        for(int i = 0; i < item.length; i++){
-            if(item[i] != null){
-                item[i].draw(graphics2,this);
-
-            }
+//        Title Screen
+        if(gameState == titleState) {
+            ui.draw(graphics2);
         }
-        //Draw new NPC
-        for(int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
-                npc[i].draw(graphics2);
-            }
-        }
-        player.draw(graphics2);
+        else{
+            tileManager.draw(graphics2);
 
-        ui.draw(graphics2);
+            for(int i = 0; i < item.length; i++){
+                if(item[i] != null){
+                    item[i].draw(graphics2,this);
+
+                }
+            }
+            //Draw new NPC
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    npc[i].draw(graphics2);
+                }
+            }
+            player.draw(graphics2);
+
+            ui.draw(graphics2);
+        }
+
+        //Everything else
+
 
         //Find the time taken to draw a tile
         if (keyHandler.checkDrawTime == true) {

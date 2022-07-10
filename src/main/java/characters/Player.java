@@ -45,7 +45,7 @@ public class Player extends Entity {
         worldX = gamePanel.tileSize+(screenX)/2;
         worldY = gamePanel.tileSize+(screenY)/2;
         speed = 4;
-        direction = "backwards";
+        direction = "backward";
     }
 
     public void getPlayerImage() {
@@ -110,6 +110,9 @@ public class Player extends Entity {
             int npcIndex = gamePanel.collisionCheck.checkEntity(this, gamePanel.npc);
             interactNPC(npcIndex);
 
+            //check Event
+            gamePanel.eventHandler.checkEvent();
+
             //If Collision is flase, player can move
             if (collisionOn == false) {
                 switch (direction) {
@@ -154,8 +157,12 @@ public class Player extends Entity {
     }
 
     private void interactNPC(int npcIndex) {
-        if(npcIndex != 999){
-            System.out.println("hitting npc");
+        if (npcIndex != 999) {
+            if (keyHandler.enterPressed == true) {
+                gamePanel.gameState = gamePanel.dialogueState;
+                gamePanel.npc[npcIndex].speak();
+            }
+            gamePanel.keyHandler.enterPressed = false;
         }
     }
 

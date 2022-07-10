@@ -25,6 +25,8 @@ public class Entity {
     public boolean collisionOn = false;
     public int standCounter = 0;
     public int actionCounter =0;
+    String dialogues[] = new String[20];
+    int dialogueindex = 0;
 
 
     public Entity(GamePanel gamePanel){
@@ -33,6 +35,30 @@ public class Entity {
 
     public void setAction(){
 
+    }
+    public void speak(){
+
+        if(dialogues[dialogueindex] == null){
+            dialogueindex = 0;
+        }
+        gamePanel.ui.currentDialogue = dialogues[dialogueindex];
+        dialogueindex ++;
+
+        switch(gamePanel.player.direction){
+            case "forward":
+                direction = "backward";
+                break;
+            case "backward":
+                direction = "forward";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+
+        }
     }
 
     public void update(){

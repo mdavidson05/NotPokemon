@@ -17,6 +17,7 @@ public class NPC_Boy extends Entity {
 
 
         getNPCImage();
+        setDialogue();
     }
 
     public void getNPCImage() {
@@ -35,6 +36,18 @@ public class NPC_Boy extends Entity {
 
     public String getText() {
         return text;
+    }
+
+    public void setDialogue(){
+        dialogues[0] = "Hello, old man";
+        dialogues[1] = "I'm going to be a legend and \nbeat the elite four";
+        dialogues[2] = "Think you can beat me?";
+        dialogues[3] = "LETSSS GOOOO";
+    }
+
+    public void speak(){
+        super.speak();
+
     }
 
     public void setAction() {
