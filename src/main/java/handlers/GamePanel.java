@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int dialogueState =3;
     public final int titleState = 0;
     public final int profOakLabState =4;
+    public final int characterState = 5;
 
     //maps
     public final int maxMap = 10;

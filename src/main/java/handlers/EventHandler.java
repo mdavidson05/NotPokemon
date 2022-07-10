@@ -23,12 +23,12 @@ public class EventHandler {
         int row = 0;
         while (col< gamePanel.maxWorldCol && row < gamePanel.maxWorldRow){
             eventHitbox[col][row] = new EventHitbox();
-            eventHitbox[col][row] .x = 23;
-            eventHitbox[col][row] .y = 23;
-            eventHitbox[col][row] .width = 2; //highlight how this was small in presentation
-            eventHitbox[col][row] .height = 2;
-            eventHitbox[col][row].eventHitboxDefaultX  = eventHitbox[col][row] .x;
-            eventHitbox[col][row].eventHitboxDefaultY  = eventHitbox[col][row] .y;
+            eventHitbox[col][row].x = 4;
+            eventHitbox[col][row].y = 7;
+            eventHitbox[col][row].width = 16; //highlight how this was small in presentation
+            eventHitbox[col][row].height = 16;
+            eventHitbox[col][row].eventHitboxDefaultX  = eventHitbox[col][row].x;
+            eventHitbox[col][row].eventHitboxDefaultY  = eventHitbox[col][row].y;
 
             col++;
             if(col == gamePanel.maxWorldCol){
@@ -48,27 +48,36 @@ public class EventHandler {
         if (distance > gamePanel.tileSize) {
             canTouchEvent = true;
         }
+//
+
         if (canTouchEvent == true) {
-            if (hit(2, 9, "any") == true) {
+            if (hit(0,7, 4, "any") == true) {
                 System.out.println("hit");
-                teleport(gamePanel.profOakLabState);
+                teleport(1,12,13);
+//
+            }
+            else if (hit(1,12, 13, "any") == true) {
+                System.out.println("hit");
+                teleport(0,4,7);
 //
             }
 
         }
     }
 
-    public boolean hit(int col, int row, String direction) {
+    public boolean hit(int map, int col, int row, String direction) {
         boolean hit = false;
         gamePanel.player.playerHitbox.x = gamePanel.player.worldX + gamePanel.player.playerHitbox.x;
         gamePanel.player.playerHitbox.y = gamePanel.player.worldY + gamePanel.player.playerHitbox.y;
         eventHitbox[col][row].x = col * gamePanel.tileSize + eventHitbox[col][row].x;
         eventHitbox[col][row].y = row * gamePanel.tileSize + eventHitbox[col][row].y;
+//        System.out.println(eventHitbox[col][row]);
+//        System.out.println(gamePanel.player.playerHitbox);
 
-        if (gamePanel.player.solidArea.intersects(eventHitbox[col][row])) {
+        if (gamePanel.player.playerHitbox.intersects(eventHitbox[col][row])) {
             if (gamePanel.player.direction.contentEquals(direction) || direction.contentEquals("any")) ;
             hit = true;
-            System.out.println("hit");
+//            System.out.println("hit");
 
             previousEventX = gamePanel.player.worldX;
             previousEventY = gamePanel.player.worldY;
@@ -83,14 +92,12 @@ public class EventHandler {
 
     }
 
-    public void teleport(int gameState) {
-        if (gameState == gamePanel.playState) {
-            tileManager.setImagePath("Maps/NewBarkTownMap.txt");
-        } else if (gameState == gamePanel.profOakLabState) {
-            tileManager.setImagePath("Maps/TestMap.txt");
-        }
-        tileManager.loadMap(tileManager.imagePath);
-
+    public void teleport(int map, int col, int row) {
+        gamePanel.currentMap = map;
+        gamePanel.player.worldX = gamePanel.tileSize*col;
+        gamePanel.player.worldY = gamePanel.tileSize*row;
+        previousEventX = gamePanel.player.worldX;
+        previousEventY = gamePanel.player.worldY;
         canTouchEvent = false;
     }
 

@@ -13,6 +13,8 @@ public class UI {
     int messageCounter = 0;
     public String currentDialogue;
     public int commandNumber = 0;
+    public int slotCoL = 0;
+    public int slotRow = 0;
 
     public UI(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -47,9 +49,47 @@ public class UI {
         if(gamePanel.gameState == gamePanel.dialogueState){
             drawDialogueScreen();
         }
+        if(gamePanel.gameState == gamePanel.characterState){
+            drawCharacterScreen();
+            drawInventory();
+        }
 }
 
+public void drawCharacterScreen(){
+        //create frame
+    final int frameX = gamePanel.tileSize*2;
+    final int frameY = gamePanel.tileSize;
+    final int frameWidth = gamePanel.tileSize*5;
+    final int frameHeight = gamePanel.tileSize*10;
+    drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+}
 public void drawProfOakLab(){
+
+}
+
+public void drawInventory(){
+    final int frameX = gamePanel.tileSize*14;
+    final int frameY = gamePanel.tileSize;
+    final int frameWidth = gamePanel.tileSize*5;
+    final int frameHeight = gamePanel.tileSize*10;
+    drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+    //make slot
+    final int slotXStart = frameX + 20;
+    final int slotYStart = frameY + 20;
+    int slotX = slotXStart;
+    int slotY = slotYStart;
+
+    //Make cursor
+    int cursorX = slotXStart + (gamePanel.tileSize*slotCoL);
+    int cursorY = slotYStart + (gamePanel.tileSize*slotRow);
+    int cursorWidth = gamePanel.tileSize;
+    int cursorHeight = gamePanel.tileSize;
+    //draw cursor
+    graphics2.setColor(Color.white);
+    graphics2.setStroke(new BasicStroke(2));
+    graphics2.drawRoundRect(cursorX,cursorY,cursorWidth,cursorHeight, 10,10);
+
 
 }
 

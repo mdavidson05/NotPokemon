@@ -3,12 +3,15 @@ package characters;
 import handlers.GamePanel;
 import handlers.KeyHandler;
 import handlers.Scaling;
+import items.Item;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+
 public class Player extends Entity {
 
     KeyHandler keyHandler;
@@ -19,6 +22,8 @@ public class Player extends Entity {
     public int standCounter = 0;
 //    public int hasItem = 0;
 //    public int hasPokeball = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int inventorySize = 20;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
@@ -46,6 +51,11 @@ public class Player extends Entity {
         worldY = gamePanel.tileSize+(screenY)/2;
         speed = 4;
         direction = "backward";
+        setItems();
+    }
+
+    public void setItems(){
+//        inventory.add(potion);
     }
 
     public void getPlayerImage() {

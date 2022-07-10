@@ -12,8 +12,8 @@ public class TileManager {
 
     GamePanel gamePanel;
     public Tile[] tile;
-    public int[][] mapTileNumber;
-    String imagePath;
+    public int[][][] mapTileNumber;
+    String mapPath;
     //NewBarkTown
     //320x288
     //320/16 x 288/16 = 20x18px
@@ -22,10 +22,10 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tile = new Tile[10]; // will expand when developing more areas
-        mapTileNumber = new int [gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+        mapTileNumber = new int [gamePanel.maxMap][gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
-        imagePath = "Maps/NewBarkTownMap.txt";
-        loadMap(imagePath);
+        loadMap("Maps/NewBarkTownMap.txt", 0);
+        loadMap("Maps/TestMap.txt",1);
     }
     public void getTileImage() {
 
@@ -63,14 +63,14 @@ public class TileManager {
         }
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImagePath(String mapPath) {
+        this.mapPath = mapPath;
     }
 
-    public void loadMap(String imagePath) {
+    public void loadMap(String mapPath, int map) {
 
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream(imagePath);
+            InputStream is = getClass().getClassLoader().getResourceAsStream(mapPath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -84,7 +84,7 @@ public class TileManager {
 
                     int num = Integer.parseInt(String.valueOf(numbers[col]));
 
-                    mapTileNumber[col][row] = num;
+                    mapTileNumber[map][col][row] = num;
                     col++;
                 }
                 if(col == gamePanel.maxScreenCol){
@@ -104,7 +104,7 @@ public class TileManager {
 
         while(worldCol < gamePanel.maxScreenCol && worldRow < gamePanel.maxScreenRow){
 
-            int tileNumber = mapTileNumber[worldCol][worldRow];
+            int tileNumber = mapTileNumber[gamePanel.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * gamePanel.tileSize;
             int worldY = worldRow * gamePanel.tileSize;
