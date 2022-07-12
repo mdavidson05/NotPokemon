@@ -123,15 +123,41 @@ public class Battle {
         graphics2.setColor(Color.white);
         graphics2.drawString(text,x,y);
 
-        //Fight Screen
-        x = gamePanel.screenWidth/2 - (gamePanel.tileSize*2)/2;
-        y = gamePanel.screenHeight/4;
-        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
-//        graphics2.drawString((player.hp.toString()));
+        //Player1 stats
+        x = gamePanel.tileSize;
+        y = gamePanel.tileSize;
+        graphics2.fillRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
+        graphics2.setColor(Color.black);
+//        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+        int playerHPNumber = player.battleSlot.get(0).hp;
+        String playerName = player.battleSlot.get(0).name;
+        int playerXPLevel = player.battleSlot.get(0).level;
+        String playerLevel = String.valueOf(playerXPLevel);
+        String hp = String.valueOf(playerHPNumber);
+        graphics2.drawString(playerName,x,y);
+        graphics2.drawString("hp: "+ hp,x,y+24);
+        graphics2.drawString("lvl: "+playerLevel,x,y+48);
+
+        //Player2 stats
+        x = gamePanel.screenWidth - gamePanel.tileSize*4;
+        y = gamePanel.tileSize;
+        graphics2.setColor(Color.white);
+        graphics2.fillRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
+        graphics2.setColor(Color.black);
+//        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+        int npcHPNumber = npc.battleSlot.get(0).hp;
+        String npcName = npc.battleSlot.get(0).name;
+        String npcHP = String.valueOf(npcHPNumber);
+        graphics2.drawString(npcName, x, y);
+        graphics2.drawString("hp: "+ npcHP,x,y+24);
+
 
         //Menu
         text = "Fight";
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        graphics2.setColor(Color.white);
         x = getXforCenterText(text, gamePanel, graphics2);
         y += gamePanel.tileSize*4;
         graphics2.drawString(text, x, y);
