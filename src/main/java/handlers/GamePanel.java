@@ -63,6 +63,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int characterState = 5;
     public final int fightState = 6;
     public final int attackState = 7;
+    public final int swapState = 8;
+
 
     //maps
     public final int maxMap = 10;
@@ -80,6 +82,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // this improves better gaming performance
         this.addKeyListener(keyHandler);
         this.setFocusable(true); // Handlers.GamePanel can be "focused" to recieve key input? Still unclear on what it does
+    }
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
     }
 
     public void setupGame(){

@@ -72,6 +72,9 @@ public class UI {
         if(gamePanel.gameState == gamePanel.attackState){
             gamePanel.battle.drawAttackScreen(graphics2);
         }
+        if(gamePanel.gameState == gamePanel.swapState){
+            gamePanel.battle.drawSwapScreen(graphics2);
+        }
 }
 
 public void drawCharacterScreen(){

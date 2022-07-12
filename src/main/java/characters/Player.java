@@ -57,8 +57,20 @@ public class Player extends Entity {
         direction = "backward";
         setItems();
         PokemonCreator pokemon1 = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+        PokemonCreator pokemon2 = new PokemonCreator("Charmeleon", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+        PokemonCreator pokemon3 = new PokemonCreator("Charizard", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+        PokemonCreator pokemon4 = new PokemonCreator("Blastoise", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+
         pokemon1.populateStartingMoves();
+        pokemon2.populateStartingMoves();
+        pokemon3.populateStartingMoves();
+        pokemon4.populateStartingMoves();
+
         party.add(pokemon1);
+        party.add(pokemon2);
+        party.add(pokemon3);
+        party.add(pokemon4);
+
         setBattleSlot();
     }
 

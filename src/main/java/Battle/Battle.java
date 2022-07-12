@@ -4,6 +4,7 @@ import characters.Entity;
 import characters.NPC_Boy;
 import characters.Player;
 import handlers.GamePanel;
+import handlers.KeyHandler;
 import moves.Moves;
 import pokemon.Pokemon;
 import pokemon.PokemonCreator;
@@ -27,6 +28,7 @@ public class Battle {
     private Graphics2D graphics2;
     private GamePanel gamePanel;
     public int commandNumber = 0;
+    private KeyHandler keyHandler;
     public Battle(Entity player, Entity npc, GamePanel gamePanel) {
         this.player = player;
         this.npc = npc;
@@ -34,7 +36,7 @@ public class Battle {
 
     }
 
-    public void attack(int index) {
+    public void attack(int index, KeyHandler keyHandler) {
         PokemonCreator playerPokemon = player.battleSlot.get(0);
         PokemonCreator npcPokemon = npc.battleSlot.get(0);
 
@@ -43,23 +45,49 @@ public class Battle {
             Moves attack = playerPokemon.getMoveList().get(index);
             int move = attack.getBasePower();
             npcPokemon.setHp(npcPokemon.hp - move);
-            npcPokemon.checkHasFainted();
-            player.checkHasWon(npc.party);
+            if (npcPokemon.checkHasFainted() == false) {
+                int randomIndex = randomSwap(1, npc.party.size());
+                keyHandler.setTurn(2);
+                switchPokemon(randomIndex,2);
+                if(player.checkHasWon(npc.party) == true){
+                    gamePanel.setGameState(gamePanel.playState);
+                }
+
+            }
             changePlayerTurn(playerTurn);
         }
+
         if (playerTurn == 2) {
             ArrayList<Moves> attack = npcPokemon.getMoveList();
             int moveIndex = randomAttack(npcPokemon, 0, 3);
             Moves move = attack.get(moveIndex);
             int moveDamage = move.getBasePower();
             playerPokemon.setHp(playerPokemon.hp - moveDamage);
-            playerPokemon.checkHasFainted();
-            npc.checkHasWon(player.party);
+            if (npcPokemon.checkHasFainted() == true) {
+//                int randomIndex = randomSwap(1, npc.party.size());
+                keyHandler.setTurn(1);
+
+//                switchPokemon(randomIndex,1);
+                if(npc.checkHasWon(player.party) == true){
+                    gamePanel.setGameState(gamePanel.playState);
+                }
+            }
+//            playerPokemon.checkHasFainted();
+//            npc.checkHasWon(player.party);
             changePlayerTurn(playerTurn);
+        }
+        if(npc.checkHasWon(player.party) == false) {
+            gamePanel.gameState = gamePanel.fightState;
         }
     }
 
     public int randomAttack(PokemonCreator pokemon, int min, int max){
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+
+    }
+
+    public int randomSwap(int min, int max){
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
 
@@ -86,21 +114,31 @@ public class Battle {
 //
 //    }
 //
-    public void switchPokemon(Entity player, Entity npc){
-        if (playerTurn == 1) {
-            player.battleSlot.remove(0);
-//            PokemonCreator selectedPokemon = player.selectPokemon();
-//            player.battleSlot.add(selectedPokemon);
-            changePlayerTurn(playerTurn);
-//            update();
+    public void switchPokemon(int selected, int turn) {
+        if (turn == 1) {
+            if (playerTurn == 1) {
+                PokemonCreator withdrawnPokemon = player.battleSlot.remove(0);
+                PokemonCreator newPokemon = player.party.get(selected);
+                player.battleSlot.add(newPokemon);
+                player.party.add(withdrawnPokemon);
+                changePlayerTurn(playerTurn);
+                gamePanel.gameState = gamePanel.fightState;
 
+            }
         }
-        if (playerTurn == 2) {
-            npc.battleSlot.remove(0);
-//            PokemonCreator selectedPokemon = npc.selectPokemon();
-//            player.battleSlot.add(selectedPokemon);
-            changePlayerTurn(playerTurn);
-//            update();
+        if (turn == 2) {
+            if (playerTurn == 2) {
+                if (npc.party.size() < selected) {
+                    int newIndex = randomSwap(1, npc.party.size());
+                    PokemonCreator withdrawnPokemon = npc.battleSlot.remove(0);
+                    PokemonCreator newPokemon = npc.party.get(newIndex);
+                    npc.battleSlot.add(newPokemon);
+                    npc.party.add(withdrawnPokemon);
+                    changePlayerTurn(playerTurn);
+                }
+
+
+            }
         }
     }
 //
@@ -216,6 +254,36 @@ public class Battle {
         graphics2.setColor(Color.white);
         graphics2.drawString(title,x,y);
 
+        //Player1 stats
+        x = gamePanel.tileSize;
+        y = gamePanel.tileSize;
+        graphics2.fillRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
+        graphics2.setColor(Color.black);
+//        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+        int playerHPNumber = player.battleSlot.get(0).hp;
+        String playerName = player.battleSlot.get(0).name;
+        int playerXPLevel = player.battleSlot.get(0).level;
+        String playerLevel = String.valueOf(playerXPLevel);
+        String hp = String.valueOf(playerHPNumber);
+        graphics2.drawString(playerName,x,y);
+        graphics2.drawString("hp: "+ hp,x,y+24);
+        graphics2.drawString("lvl: "+playerLevel,x,y+48);
+
+        //Player2 stats
+        x = gamePanel.screenWidth - gamePanel.tileSize*4;
+        y = gamePanel.tileSize;
+        graphics2.setColor(Color.white);
+        graphics2.fillRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
+        graphics2.setColor(Color.black);
+//        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+        int npcHPNumber = npc.battleSlot.get(0).hp;
+        String npcName = npc.battleSlot.get(0).name;
+        String npcHP = String.valueOf(npcHPNumber);
+        graphics2.drawString(npcName, x, y);
+        graphics2.drawString("hp: "+ npcHP,x,y+24);
+
         //Fight Screen
         x = gamePanel.screenWidth/2 - (gamePanel.tileSize*2)/2;
         y = gamePanel.screenHeight/4;
@@ -227,6 +295,7 @@ public class Battle {
         Moves moves = pokemonMoves.get(0);
         String move = moves.getName();
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        graphics2.setColor(Color.white);
         x = getXforCenterText(move, gamePanel, graphics2);
         y += gamePanel.tileSize*4;
         graphics2.drawString(move, x, y);
@@ -266,4 +335,110 @@ public class Battle {
         }
 
     }
+
+    public void drawSwapScreen(Graphics2D graphics2) {
+        graphics2.setColor(Color.black);
+        graphics2.fillRect(0,0, gamePanel.screenWidth, gamePanel.screenHeight);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        String title = "SWAP POKEMON";
+        int x = getXforCenterText(title, gamePanel, graphics2);
+        int y = gamePanel.tileSize*3;
+
+        //shadow
+        graphics2.setColor(Color.gray);
+        graphics2.drawString(title, x+5, y+5);
+
+        graphics2.setColor(Color.white);
+        graphics2.drawString(title,x,y);
+
+        //Player1 stats
+        x = gamePanel.tileSize;
+        y = gamePanel.tileSize;
+        graphics2.fillRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
+        graphics2.setColor(Color.black);
+//        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+        int playerHPNumber = player.battleSlot.get(0).hp;
+        String playerName = player.battleSlot.get(0).name;
+        int playerXPLevel = player.battleSlot.get(0).level;
+        String playerLevel = String.valueOf(playerXPLevel);
+        String hp = String.valueOf(playerHPNumber);
+        graphics2.drawString(playerName,x,y);
+        graphics2.drawString("hp: "+ hp,x,y+24);
+        graphics2.drawString("lvl: "+playerLevel,x,y+48);
+
+        //Player2 stats
+        x = gamePanel.screenWidth - gamePanel.tileSize*4;
+        y = gamePanel.tileSize;
+        graphics2.setColor(Color.white);
+        graphics2.fillRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
+        graphics2.setColor(Color.black);
+//        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+        int npcHPNumber = npc.battleSlot.get(0).hp;
+        String npcName = npc.battleSlot.get(0).name;
+        String npcHP = String.valueOf(npcHPNumber);
+        graphics2.drawString(npcName, x, y);
+        graphics2.drawString("hp: "+ npcHP,x,y+24);
+
+        //Fight Screen
+        x = gamePanel.screenWidth/2 - (gamePanel.tileSize*2)/2;
+        y = gamePanel.screenHeight/4;
+        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
+//        graphics2.drawString((player.hp.toString()));
+
+        //Menu
+        String pokemonName = player.party.get(0).name;
+        int pokemonHPNum = player.party.get(0).hp;
+        String pokemonHP = String.valueOf(pokemonHPNum);
+        String displayInfo = pokemonName + " hp: " + pokemonHP;
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        graphics2.setColor(Color.white);
+        x = getXforCenterText(displayInfo, gamePanel, graphics2);
+        y += gamePanel.tileSize*4;
+        graphics2.drawString(displayInfo, x, y);
+//        graphics2.drawString(">", x - gamePanel.tileSize, y);
+
+        if(commandNumber == 0){
+            graphics2.drawString(">", x - gamePanel.tileSize, y);
+        }
+        String pokemonName1 = player.party.get(1).name;
+        int pokemonHPNum1 = player.party.get(1).hp;
+        String pokemonHP1 = String.valueOf(pokemonHPNum1);
+        String displayInfo1 = pokemonName1 + " hp: " + pokemonHP1;
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        x = getXforCenterText(displayInfo1, gamePanel, graphics2);
+        y += gamePanel.tileSize;
+        graphics2.drawString(displayInfo1, x, y);
+        if(commandNumber == 1){
+            graphics2.drawString(">", x - gamePanel.tileSize, y);
+        }
+
+        String pokemonName2 = player.party.get(2).name;
+        int pokemonHPNum2 = player.party.get(2).hp;
+        String pokemonHP2 = String.valueOf(pokemonHPNum2);
+        String displayInfo2 = pokemonName2 + " hp: " + pokemonHP2;
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        x = getXforCenterText(displayInfo2, gamePanel, graphics2);
+        y += gamePanel.tileSize;
+        graphics2.drawString(displayInfo2, x, y);
+        if(commandNumber == 2){
+            graphics2.drawString(">", x - gamePanel.tileSize, y);
+        }
+
+        String pokemonName3 = player.party.get(3).name;
+        int pokemonHPNum3 = player.party.get(3).hp;
+        String pokemonHP3 = String.valueOf(pokemonHPNum3);
+        String displayInfo3 = pokemonName3 + " hp: " + pokemonHP3;
+        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+        x = getXforCenterText(displayInfo3, gamePanel, graphics2);
+        y += gamePanel.tileSize;
+        graphics2.drawString(displayInfo3, x, y);
+        if(commandNumber == 3){
+            graphics2.drawString(">", x - gamePanel.tileSize, y);
+        }
+
+    }
+
+
 }

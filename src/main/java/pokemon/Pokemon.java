@@ -13,6 +13,7 @@ public abstract class Pokemon {
     PokemonTypes pokemonTypes;
     private int xp;
     private boolean awake;
+    private boolean fightIsWon;
 
     public Pokemon(String name, int hp, int level, PokemonTypes pokemonTypes, int xp, boolean awake) {
         this.name = name;
@@ -23,10 +24,25 @@ public abstract class Pokemon {
         this.awake = awake;
     }
 
-    public void checkHasFainted(){
+    public boolean checkHasFainted(){
         if(hp<=0){
             this.awake = false;
         }
+        return this.awake;
+    }
+
+    public boolean checkHasWon(ArrayList<PokemonCreator> party){
+        fightIsWon = false;
+        int faintCounter =0;
+        for(int i = 0; i < party.size(); i++){
+            if(party.get(i).hp <= 0){
+                faintCounter++;
+            }
+        }
+        if(faintCounter == party.size()){
+            fightIsWon = true;
+        }
+        return fightIsWon;
     }
 
 

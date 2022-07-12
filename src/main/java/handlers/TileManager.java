@@ -2,7 +2,6 @@ package handlers;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,10 +24,10 @@ public class TileManager {
         mapTileNumber = new int [gamePanel.maxMap][gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
         loadMap("Maps/NewBarkTownMap.txt", 0);
-        loadMap("Maps/TestMap.txt",1);
+        loadMap("Maps/OakLab.txt",1);
     }
     public void getTileImage() {
-
+//initial method before optimised
 //        try {
 //            tile[0] = new Tile();
 //            tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png"));

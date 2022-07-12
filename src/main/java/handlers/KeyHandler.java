@@ -9,6 +9,11 @@ public class KeyHandler implements KeyListener {
 
     public boolean upPressed, leftPressed, downPressed, rightPressed, pausePressed,enterPressed;
     public boolean checkDrawTime = false;
+    public int turn = 1;
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 
     public KeyHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -43,6 +48,9 @@ public class KeyHandler implements KeyListener {
         }
         else if (gamePanel.gameState == gamePanel.attackState){
             attackState(input);
+        }
+        else if (gamePanel.gameState == gamePanel.swapState){
+            swapState(input);
         }
     }
 
@@ -80,6 +88,10 @@ public class KeyHandler implements KeyListener {
             if(gamePanel.battle.commandNumber == 0){
                 //draw fight subwindow
                 gamePanel.gameState = gamePanel.attackState;
+            }
+            if(gamePanel.battle.commandNumber == 2){
+                //draw fight subwindow
+                gamePanel.gameState = gamePanel.swapState;
             }
             if(gamePanel.battle.commandNumber == 3){
                 gamePanel.gameState = gamePanel.playState;
@@ -121,10 +133,67 @@ public class KeyHandler implements KeyListener {
             if(gamePanel.battle.commandNumber == 0){
                 //draw fight subwindow
 //                gamePanel.gameState = gamePanel.attackState;
-                gamePanel.battle.attack(gamePanel.battle.commandNumber);
+                gamePanel.battle.attack(gamePanel.battle.commandNumber,this);
+            }
+            if(gamePanel.battle.commandNumber == 2){
+                //draw fight subwindow
+//                gamePanel.gameState = gamePanel.attackState;
+                gamePanel.battle.attack(gamePanel.battle.commandNumber,this);
             }
             if(gamePanel.battle.commandNumber == 3){
                 gamePanel.gameState = gamePanel.playState;
+            }
+        }
+    }
+
+    public void swapState(int input){
+        if (input == KeyEvent.VK_W)
+        {
+            gamePanel.battle.commandNumber--;
+            if(gamePanel.battle.commandNumber < 0){
+                gamePanel.battle.commandNumber = 4;
+            }
+        }
+//        if (input == KeyEvent.VK_A)
+//        {
+//            gamePanel.ui.commandNumber++;
+//
+//        }
+        if (input == KeyEvent.VK_S)
+        {
+            gamePanel.battle.commandNumber++;
+            if (gamePanel.battle.commandNumber > 3){
+                gamePanel.battle.commandNumber = 0;
+            }
+
+        }
+//        if (input == KeyEvent.VK_D)
+//        {
+//            gamePanel.ui.commandNumber++;
+//            if (gamePanel.ui.commandNumber > 2){
+//                gamePanel.ui.commandNumber = 0;
+//            }
+//
+//        }
+        if (input == KeyEvent.VK_SPACE)
+        {
+            if(gamePanel.battle.commandNumber == 0){
+                //draw fight subwindow
+//                gamePanel.gameState = gamePanel.attackState;
+                gamePanel.battle.switchPokemon(gamePanel.battle.commandNumber,turn);
+            }
+            if(gamePanel.battle.commandNumber == 1){
+                //draw fight subwindow
+//                gamePanel.gameState = gamePanel.attackState;
+                gamePanel.battle.switchPokemon(gamePanel.battle.commandNumber,turn);
+            }
+            if(gamePanel.battle.commandNumber == 2){
+                //draw fight subwindow
+//                gamePanel.gameState = gamePanel.attackState;
+                gamePanel.battle.switchPokemon(gamePanel.battle.commandNumber,turn);
+            }
+            if(gamePanel.battle.commandNumber == 3){
+                gamePanel.battle.switchPokemon(gamePanel.battle.commandNumber,turn);
             }
         }
     }

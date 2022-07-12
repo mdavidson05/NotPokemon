@@ -4,6 +4,7 @@ package characters;
 import handlers.GamePanel;
 import handlers.Scaling;
 import moves.Moves;
+import pokemon.PokemonConstructor;
 import pokemon.PokemonCreator;
 
 import javax.imageio.ImageIO;
@@ -63,9 +64,13 @@ public class Entity {
         if(party.size() >=1 ){
             canFight = true;
         }
+        else if(checkHasWon(party) == true){
+            canFight = false;
+        }
         return canFight;
 
     }
+
 
     public boolean checkHasWon(ArrayList<PokemonCreator> party){
         fightIsWon = false;
