@@ -1,20 +1,29 @@
 package handlers;
 
+//import Battle.Battle;
+//import Battle.Battle;
+import Battle.Battle;
+import characters.NPC_Boy;
+import characters.Player;
+
 import java.awt.*;
 import java.text.DecimalFormat;
 
 public class UI {
 
-    GamePanel gamePanel;
-    Graphics2D graphics2;
+    public GamePanel gamePanel;
+    public Graphics2D graphics2;
     Font arial_40, arial_80B;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
     public String currentDialogue;
-    public int commandNumber = 0;
+    public int commandNumber = 0; // maybe change to public static
     public int slotCoL = 0;
     public int slotRow = 0;
+    public NPC_Boy npc;
+    public Player player;
+    public Battle battle;
 
     public UI(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -46,12 +55,22 @@ public class UI {
         if(gamePanel.gameState == gamePanel.pauseState){
         drawPauseScreen();
         }
-        if(gamePanel.gameState == gamePanel.dialogueState){
+        if(gamePanel.gameState == gamePanel.dialogueState) {
             drawDialogueScreen();
+            if (gamePanel.npcBoy.canFightPlayer() == true) {
+                gamePanel.gameState = gamePanel.fightState;
+
+            }
         }
         if(gamePanel.gameState == gamePanel.characterState){
             drawCharacterScreen();
             drawInventory();
+        }
+        if(gamePanel.gameState == gamePanel.fightState){
+            gamePanel.battle.drawFightScreen(graphics2);
+        }
+        if(gamePanel.gameState == gamePanel.attackState){
+            gamePanel.battle.drawAttackScreen(graphics2);
         }
 }
 
@@ -63,9 +82,7 @@ public void drawCharacterScreen(){
     final int frameHeight = gamePanel.tileSize*10;
     drawSubWindow(frameX,frameY,frameWidth,frameHeight);
 }
-public void drawProfOakLab(){
 
-}
 
 public void drawInventory(){
     final int frameX = gamePanel.tileSize*14;
@@ -160,7 +177,7 @@ public void drawDialogueScreen() {
 }
 
 public void drawSubWindow(int x, int y, int width, int height){
-        Color color = new Color(0,0,0,220); //4th param is the opacity. 255 the max
+        Color color = new Color(10,0,0,220); //4th param is the opacity. 255 the max
         graphics2.setColor(color);
 
         graphics2.fillRoundRect(x,y,width,height, 35,35);

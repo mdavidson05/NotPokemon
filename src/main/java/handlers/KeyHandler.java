@@ -38,7 +38,97 @@ public class KeyHandler implements KeyListener {
         else if (gamePanel.gameState == gamePanel.characterState) {
             characterState(input);
         }
+        else if (gamePanel.gameState == gamePanel.fightState){
+            fightState(input);
+        }
+        else if (gamePanel.gameState == gamePanel.attackState){
+            attackState(input);
+        }
     }
+
+    public void fightState(int input){
+        if (input == KeyEvent.VK_W)
+        {
+            gamePanel.battle.commandNumber--;
+            if(gamePanel.battle.commandNumber < 0){
+                gamePanel.battle.commandNumber = 4;
+            }
+        }
+//        if (input == KeyEvent.VK_A)
+//        {
+//            gamePanel.ui.commandNumber++;
+//
+//        }
+        if (input == KeyEvent.VK_S)
+        {
+            gamePanel.battle.commandNumber++;
+            if (gamePanel.battle.commandNumber > 3){
+                gamePanel.battle.commandNumber = 0;
+            }
+
+        }
+//        if (input == KeyEvent.VK_D)
+//        {
+//            gamePanel.ui.commandNumber++;
+//            if (gamePanel.ui.commandNumber > 2){
+//                gamePanel.ui.commandNumber = 0;
+//            }
+//
+//        }
+        if (input == KeyEvent.VK_SPACE)
+        {
+            if(gamePanel.battle.commandNumber == 0){
+                //draw fight subwindow
+                gamePanel.gameState = gamePanel.attackState;
+            }
+            if(gamePanel.battle.commandNumber == 3){
+                gamePanel.gameState = gamePanel.playState;
+            }
+        }
+    }
+
+    public void attackState(int input){
+        if (input == KeyEvent.VK_W)
+        {
+            gamePanel.battle.commandNumber--;
+            if(gamePanel.battle.commandNumber < 0){
+                gamePanel.battle.commandNumber = 4;
+            }
+        }
+//        if (input == KeyEvent.VK_A)
+//        {
+//            gamePanel.ui.commandNumber++;
+//
+//        }
+        if (input == KeyEvent.VK_S)
+        {
+            gamePanel.battle.commandNumber++;
+            if (gamePanel.battle.commandNumber > 3){
+                gamePanel.battle.commandNumber = 0;
+            }
+
+        }
+//        if (input == KeyEvent.VK_D)
+//        {
+//            gamePanel.ui.commandNumber++;
+//            if (gamePanel.ui.commandNumber > 2){
+//                gamePanel.ui.commandNumber = 0;
+//            }
+//
+//        }
+        if (input == KeyEvent.VK_SPACE)
+        {
+            if(gamePanel.battle.commandNumber == 0){
+                //draw fight subwindow
+//                gamePanel.gameState = gamePanel.attackState;
+                gamePanel.battle.attack(gamePanel.battle.commandNumber);
+            }
+            if(gamePanel.battle.commandNumber == 3){
+                gamePanel.gameState = gamePanel.playState;
+            }
+        }
+    }
+
 
     public void titleState(int input){
         if (input == KeyEvent.VK_W)

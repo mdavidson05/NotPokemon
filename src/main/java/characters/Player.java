@@ -4,6 +4,8 @@ import handlers.GamePanel;
 import handlers.KeyHandler;
 import handlers.Scaling;
 import items.Item;
+import pokemon.PokemonCreator;
+import pokemon.PokemonTypes;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,6 +30,8 @@ public class Player extends Entity {
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
         this.keyHandler = keyHandler;
+        battleSlot = new ArrayList<>();
+        party = new ArrayList<>();
 
         screenX = gamePanel.screenWidth/2 - (gamePanel.tileSize/2);
         screenY = gamePanel.screenHeight/2 -(gamePanel.tileSize/2);
@@ -52,6 +56,10 @@ public class Player extends Entity {
         speed = 4;
         direction = "backward";
         setItems();
+        PokemonCreator pokemon1 = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+        pokemon1.populateStartingMoves();
+        party.add(pokemon1);
+        setBattleSlot();
     }
 
     public void setItems(){
@@ -171,6 +179,7 @@ public class Player extends Entity {
             if (keyHandler.enterPressed == true) {
                 gamePanel.gameState = gamePanel.dialogueState;
                 gamePanel.npc[npcIndex].speak();
+
             }
             gamePanel.keyHandler.enterPressed = false;
         }

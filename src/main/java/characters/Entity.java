@@ -1,12 +1,16 @@
 package characters;
 
+//import Battle.BattleMechanics;
 import handlers.GamePanel;
 import handlers.Scaling;
+import moves.Moves;
+import pokemon.PokemonCreator;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Entity {
     //Motion
@@ -27,11 +31,66 @@ public class Entity {
     public int actionCounter =0;
     String dialogues[] = new String[20];
     int dialogueindex = 0;
+    public ArrayList<PokemonCreator> party = new ArrayList<>();
+    public ArrayList<Moves> moveSet = new ArrayList<>();
+    public ArrayList baseStats = new ArrayList<>();
+    PokemonCreator pokemonCreator;
+    private boolean canFight = false;
+    public ArrayList<PokemonCreator> battleSlot = new ArrayList<>();
+    private boolean fightIsWon;
 
 
     public Entity(GamePanel gamePanel){
         this.gamePanel=gamePanel;
+//        battleSlot.add();
     }
+
+//    public Moves selectedMove(){
+//        //need to figure out player input
+//        //user input == int selected
+//        //selected = moveSet.get(input)
+//        //return selected
+//    }
+
+//    public Moves randomMove(){
+//        //need to figure out player input
+//        //user input == int selected
+//        //selected = moveSet.get(input)
+//        //return selected
+//    }
+
+    public boolean canFightPlayer(){
+        if(party.size() >=1 ){
+            canFight = true;
+        }
+        return canFight;
+
+    }
+
+    public boolean checkHasWon(ArrayList<PokemonCreator> party){
+        fightIsWon = false;
+        int faintCounter =0;
+        for(int i = 0; i < party.size(); i++){
+            if(party.get(i).hp <= 0){
+                faintCounter++;
+            }
+            }
+        if(faintCounter == party.size()){
+            fightIsWon = true;
+        }
+        return fightIsWon;
+        }
+
+    public void setBattleSlot(){
+        battleSlot.add(party.get(0));
+    }
+
+//    public PokemonCreator selectPokemon(){
+//        //need to figure out player input
+//        //user input == int selected
+//        //selected = party.get(input)
+//        //return selected
+//    }
 
     public void setAction(){
 

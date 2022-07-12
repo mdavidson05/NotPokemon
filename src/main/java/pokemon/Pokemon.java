@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public abstract class Pokemon {
 
     public String name;
-    private int hp;
-    private int level;
+    public int hp;
+    public int level;
     PokemonTypes pokemonTypes;
     private int xp;
     private boolean awake;
@@ -22,6 +22,13 @@ public abstract class Pokemon {
         this.xp = xp;
         this.awake = awake;
     }
+
+    public void checkHasFainted(){
+        if(hp<=0){
+            this.awake = false;
+        }
+    }
+
 
     public String getName() {
 

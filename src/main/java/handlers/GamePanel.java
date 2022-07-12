@@ -1,7 +1,9 @@
 package handlers;
 
+import Battle.Battle;
 import characters.CollisionCheck;
 import characters.Entity;
+import characters.NPC_Boy;
 import characters.Player;
 import items.SuperItem;
 
@@ -46,6 +48,10 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity npc[] = new Entity[10];
     //EventHandller
     public EventHandler eventHandler = new EventHandler(this);
+//Fight menu
+    public NPC_Boy npcBoy = new NPC_Boy(this);
+    public Battle battle = new Battle(player, npcBoy,this);
+
 
     //GameStates
     public int gameState;
@@ -55,6 +61,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int titleState = 0;
     public final int profOakLabState =4;
     public final int characterState = 5;
+    public final int fightState = 6;
+    public final int attackState = 7;
 
     //maps
     public final int maxMap = 10;
@@ -131,6 +139,13 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == pauseState){
 
         }
+        //Fight Screen
+        if(gameState == fightState){
+            player.update();
+        }
+        if(gameState == attackState){
+            player.update();
+        }
     }
 
 
@@ -165,6 +180,8 @@ public class GamePanel extends JPanel implements Runnable {
             player.draw(graphics2);
 
             ui.draw(graphics2);
+
+//            battle.drawFightScreen(graphics2);
         }
 
         //Everything else

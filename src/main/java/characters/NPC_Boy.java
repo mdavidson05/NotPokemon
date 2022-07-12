@@ -1,24 +1,42 @@
 package characters;
 
 import handlers.GamePanel;
+import moves.Moves;
+import pokemon.PokemonCreator;
+import pokemon.PokemonTypes;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class NPC_Boy extends Entity {
 
     private String text;
 
+
     public NPC_Boy(GamePanel gamePanel) {
         super(gamePanel);
         direction = "backward";
         speed = 1;
+        party = new ArrayList<>();
+        PokemonCreator pokemon1 = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+        pokemon1.populateStartingMoves();
+
+        party.add(pokemon1);
+        battleSlot = new ArrayList<>();
+
 
 
         getNPCImage();
         setDialogue();
+        setBattleSlot();
+        canFightPlayer();
     }
+
+
+
+
 
     public void getNPCImage() {
 
