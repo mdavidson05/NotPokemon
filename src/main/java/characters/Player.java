@@ -256,7 +256,6 @@ public class Player extends Entity {
                         PokemonCreator selectedStarter = gamePanel.player.party.get(0);
                         battleSlot.add(selectedStarter);
                     }
-//                    gamePanel.player.party.add(gamePanel.item[gamePanel.currentMap][index])
                     gamePanel.pokeball[gamePanel.currentMap][index] = null;
                     System.out.println("Pokeball: "+ hasPokeball);
 

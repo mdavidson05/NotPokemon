@@ -61,36 +61,36 @@ public class EventHandler {
             } else if (hit(1, 8, 15, "any") == true) {
                 System.out.println("hit");
                 teleport(0, 6, 5);
-            } else if (hit(1, 8, 15, "any") == true) {
-                    System.out.println("hit");
-                    teleport(0, 6, 5);
+            } else if (hit(1, 9, 15, "any") == true) {
+                System.out.println("hit");
+                teleport(0, 6, 5);
+            } else if (hit(0, 1, 9, "any") == true) {
+                System.out.println("hit");
+                teleport(2, 17, 8);
             } else if (hit(0, 1, 10, "any") == true) {
                 System.out.println("hit");
-                teleport(2, 17, 6);
-            }
-            else if (hit(0, 1, 9, "any") == true) {
-                System.out.println("hit");
-                teleport(2, 17, 10);
-            }
-            else if (hit(2, 0, 9, "any") == true) {
+                teleport(2, 17, 9);
+            } else if (hit(2, 0, 9, "any") == true) {
                 System.out.println("hit");
                 teleport(3, 8, 8);
-            }
-            else if (hit(2, 0, 8, "any") == true) {
+            } else if (hit(2, 0, 8, "any") == true) {
                 System.out.println("hit");
-                teleport(3, 8, 8);
-            }
-            else if (hit(2, 0, 10, "any") == true) {
+                teleport(3, 8, 9);
+            } else if (hit(2, 0, 10, "any") == true) {
                 System.out.println("hit");
-                teleport(3, 8, 8);
-            }
-            else if (hit(2, 18, 10, "any") == true) {
+                teleport(3, 8, 10);
+            } else if (hit(2, 18, 9, "any") == true) {
                 System.out.println("hit");
                 teleport(0, 2, 9);
-            }
-            else if (hit(3, 8, 8, "any") == true) {
+            } else if (hit(2, 18, 10, "any") == true) {
                 System.out.println("hit");
-                teleport(2, 1, 9);
+                teleport(0, 2, 10);
+            }else if (hit(2, 18, 9, "any") == true) {
+                System.out.println("hit");
+                teleport(0, 2, 9);
+            } else if (hit(3, 18, 9, "any") == true) {
+                System.out.println("hit");
+                teleport(2, 2, 9);
             }
         }
     }

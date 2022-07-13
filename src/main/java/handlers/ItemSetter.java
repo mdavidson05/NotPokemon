@@ -2,6 +2,7 @@ package handlers;
 
 import characters.NPC_Boy;
 import characters.NPC_ProfOak;
+import characters.NPC_Prophet;
 
 public class ItemSetter {
 
@@ -57,6 +58,10 @@ public class ItemSetter {
         //if same NPC appears in multiple maps
         mapNumber = 1;
         gamePanel.npc[mapNumber][0] = new NPC_ProfOak(gamePanel);
+        gamePanel.npc[mapNumber][0].worldX = gamePanel.tileSize*10;
+        gamePanel.npc[mapNumber][0].worldY = gamePanel.tileSize*10;
+        mapNumber = 3;
+        gamePanel.npc[mapNumber][0] = new NPC_Prophet(gamePanel);
         gamePanel.npc[mapNumber][0].worldX = gamePanel.tileSize*10;
         gamePanel.npc[mapNumber][0].worldY = gamePanel.tileSize*10;
 

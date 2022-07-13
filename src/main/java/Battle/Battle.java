@@ -1,24 +1,16 @@
 package Battle;
 
 import characters.Entity;
-import characters.NPC_Boy;
-import characters.Player;
 import handlers.GamePanel;
 import handlers.KeyHandler;
 import moves.Moves;
-import pokemon.Pokemon;
 import pokemon.PokemonCreator;
 
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
-//available pokemon moves
-//super(name, hp, level, pokemonTypes, xp, awake);
-//        this.ID = ID;
-//        this.height = height;
-//        this.moveList = moveList;
-//        this.baseStats = baseStats;
+
 
 
 public class Battle {
@@ -75,9 +67,7 @@ public class Battle {
                     gamePanel.setGameState(gamePanel.playState);
                 }
             }
-//            playerPokemon.checkHasFainted();
-//            npc.checkHasWon(player.party);
-//            changePlayerTurn(playerTurn);
+
         }
         if(npc.checkHasWon(player.party) == false) {
             gamePanel.gameState = gamePanel.fightState;
@@ -170,7 +160,7 @@ public class Battle {
         //Player1 stats
         x = gamePanel.tileSize;
         y = gamePanel.tileSize;
-        graphics2.fillRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.fillRoundRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4,10,10);
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
         graphics2.setColor(Color.black);
 //        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
@@ -187,7 +177,7 @@ public class Battle {
         x = gamePanel.screenWidth - gamePanel.tileSize*4;
         y = gamePanel.tileSize;
         graphics2.setColor(Color.white);
-        graphics2.fillRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.fillRoundRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4,10,10);
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
         graphics2.setColor(Color.black);
 //        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
@@ -263,7 +253,7 @@ public class Battle {
         //Player1 stats
         x = gamePanel.tileSize;
         y = gamePanel.tileSize;
-        graphics2.fillRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.fillRoundRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4,10,10);
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
         graphics2.setColor(Color.black);
 //        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
@@ -280,7 +270,7 @@ public class Battle {
         x = gamePanel.screenWidth - gamePanel.tileSize*4;
         y = gamePanel.tileSize;
         graphics2.setColor(Color.white);
-        graphics2.fillRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.fillRoundRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4,10,10);
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
         graphics2.setColor(Color.black);
 //        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
@@ -360,7 +350,7 @@ public class Battle {
         //Player1 stats
         x = gamePanel.tileSize;
         y = gamePanel.tileSize;
-        graphics2.fillRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.fillRoundRect(0,0, gamePanel.screenWidth/4, gamePanel.screenHeight/4,10,10);
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
         graphics2.setColor(Color.black);
 //        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);
@@ -377,7 +367,7 @@ public class Battle {
         x = gamePanel.screenWidth - gamePanel.tileSize*4;
         y = gamePanel.tileSize;
         graphics2.setColor(Color.white);
-        graphics2.fillRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4);
+        graphics2.fillRoundRect(gamePanel.screenWidth - gamePanel.tileSize*5, 0, gamePanel.screenWidth/4, gamePanel.screenHeight/4,10,10);
         graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 24F));
         graphics2.setColor(Color.black);
 //        graphics2.drawImage(gamePanel.player.backwards1,x,y, gamePanel.tileSize*2, gamePanel.tileSize *2, null);

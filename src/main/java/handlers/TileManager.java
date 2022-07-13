@@ -30,11 +30,6 @@ public class TileManager {
 
     }
     public void getTileImage() {
-//initial method before optimised
-//        try {
-//            tile[0] = new Tile();
-//            tile[0].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tiles/tree.png"));
-//            tile[0].collision = true;
             setup(0, "tree", true);
             setup(1, "Roof", true);
             setup(2, "Grass", false);
@@ -62,6 +57,10 @@ public class TileManager {
             setup(24, "healingmachineBR", true);
             setup(25, "bollard", true);
             setup(26, "hedge", true);
+            setup(27, "Charmander", true);
+            setup(28, "Squirtle", true);
+            setup(29, "Bulbasaur", true);
+
 
 
 
