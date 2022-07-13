@@ -446,5 +446,19 @@ public class Battle {
 
     }
 
+    public Entity getPlayer() {
+        return player;
+    }
 
+    public void setPlayer(Entity player) {
+        this.player = player;
+    }
+
+    public Entity getNpc() {
+        return npc;
+    }
+
+    public void setNpc(Entity npc) {
+        this.npc = npc;
+    }
 }

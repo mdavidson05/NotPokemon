@@ -150,6 +150,9 @@ public class CollisionCheck {
                 //get item hitbox
                 target[gamePanel.currentMap][i].solidArea.x = target[gamePanel.currentMap][i].worldX + target[gamePanel.currentMap][i].solidArea.x;
                 target[gamePanel.currentMap][i].solidArea.y = target[gamePanel.currentMap][i].worldY + target[gamePanel.currentMap][i].solidArea.y;
+//                if(target instanceof Entity[][]){
+//                    target.
+//                }
 
                 switch (entity.direction) {
                     case "forward":

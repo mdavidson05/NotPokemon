@@ -51,7 +51,9 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eventHandler = new EventHandler(this);
 //Fight menu
     public NPC_Boy npcBoy = new NPC_Boy(this);
+//    private Entity npc = new Entity();
     public Battle battle = new Battle(player, npcBoy,this);
+//    private Battle battle = new Battle();
 
 
     //GameStates

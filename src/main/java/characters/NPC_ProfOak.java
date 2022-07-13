@@ -52,7 +52,7 @@ public class NPC_ProfOak extends Entity {
     }
 
     public void setDialogue(){
-        dialogues[0] = "Nice to see you Max, why don't you grab a pokemon from the table!";
+        dialogues[0] = "Nice to see you Max, why don't \nyou grab a pokemon from the table!";
         dialogues[1] = "You're going to be a legend and \nbeat the elite four";
         dialogues[2] = "You can go now";
         dialogues[3] = "Dude... leave me alone";

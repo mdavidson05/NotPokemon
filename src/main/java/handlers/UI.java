@@ -4,6 +4,7 @@ package handlers;
 //import Battle.Battle;
 import Battle.Battle;
 import characters.NPC_Boy;
+import characters.NPC_ProfOak;
 import characters.Player;
 
 import java.awt.*;
@@ -21,9 +22,11 @@ public class UI {
     public int commandNumber = 0; // maybe change to public static
     public int slotCoL = 0;
     public int slotRow = 0;
-    public NPC_Boy npc;
-    public Player player;
-    public Battle battle;
+    private int npcType = 0;
+
+    public void setNpcType(int npcType) {
+        this.npcType = npcType;
+    }
 
     public UI(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -57,17 +60,33 @@ public class UI {
         }
         if(gamePanel.gameState == gamePanel.dialogueState) {
             drawDialogueScreen();
+            if(npcType != 1){
             if (gamePanel.npcBoy.canFightPlayer() == true) {
                 gamePanel.gameState = gamePanel.fightState;
 
-            }
+            }}
         }
         if(gamePanel.gameState == gamePanel.characterState){
             drawCharacterScreen();
             drawInventory();
         }
         if(gamePanel.gameState == gamePanel.fightState){
-            gamePanel.battle.drawFightScreen(graphics2);
+
+            //Check which enemy to create
+//            if(npcType == 1){
+//                NPC_ProfOak npc = new NPC_ProfOak(gamePanel);
+//                gamePanel.battle.setNpc(npc);
+//                gamePanel.battle.drawFightScreen(graphics2);
+//            }
+            if(npcType == 2){
+                gamePanel.battle.setNpc(gamePanel.npcBoy);
+                gamePanel.battle.drawFightScreen(graphics2);
+            }
+            //java syntax for instance of
+            //if the collision is with oak, then make an oak object return
+//            NPC_ProfOak banana = new NPC_ProfOak(gamePanel);
+            //Changes the default enemy
+//            gamePanel.battle.setNpc(npc);
         }
         if(gamePanel.gameState == gamePanel.attackState){
             gamePanel.battle.drawAttackScreen(graphics2);

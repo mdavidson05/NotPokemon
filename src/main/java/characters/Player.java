@@ -3,6 +3,7 @@ package characters;
 import handlers.GamePanel;
 import handlers.KeyHandler;
 import handlers.Scaling;
+import handlers.UI;
 import items.Item;
 import pokemon.PokemonCreator;
 import pokemon.PokemonTypes;
@@ -34,7 +35,7 @@ public class Player extends Entity {
         party = new ArrayList<>();
 
         screenX = gamePanel.screenWidth/2 - (gamePanel.tileSize/2);
-        screenY = gamePanel.screenHeight/2 -(gamePanel.tileSize/2);
+        screenY = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
         playerHitbox = new Rectangle(8,16,32, 32); //need to adjust when resizing
         solidAreaDefaultX = playerHitbox.x;
         solidAreaDefaultY = playerHitbox.y;
@@ -138,6 +139,7 @@ public class Player extends Entity {
 
             //Check NPC collision
             int npcIndex = gamePanel.collisionCheck.checkEntity(this, gamePanel.npc);
+//            if(gamePanel.npc instanceof NPC_Boy == true)
             interactNPC(npcIndex);
 
             //check Event
@@ -191,9 +193,14 @@ public class Player extends Entity {
             if (keyHandler.enterPressed == true) {
                 gamePanel.gameState = gamePanel.dialogueState;
                 gamePanel.npc[gamePanel.currentMap][npcIndex].speak();
-
+                if (gamePanel.npc[gamePanel.currentMap][npcIndex] instanceof NPC_Boy) {
+                    gamePanel.ui.setNpcType(2);
+                }
+                if (gamePanel.npc[gamePanel.currentMap][npcIndex] instanceof NPC_ProfOak) {
+                    gamePanel.ui.setNpcType(1);
+                }
+                gamePanel.keyHandler.enterPressed = false;
             }
-            gamePanel.keyHandler.enterPressed = false;
         }
     }
 
