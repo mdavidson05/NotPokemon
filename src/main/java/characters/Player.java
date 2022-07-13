@@ -22,8 +22,8 @@ public class Player extends Entity {
     public final int screenY;
     public boolean inFight;
     public int standCounter = 0;
-//    public int hasItem = 0;
-//    public int hasPokeball = 0;
+    public int hasItem = 0;
+    public int hasPokeball = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int inventorySize = 20;
 
@@ -190,7 +190,7 @@ public class Player extends Entity {
         if (npcIndex != 999) {
             if (keyHandler.enterPressed == true) {
                 gamePanel.gameState = gamePanel.dialogueState;
-                gamePanel.npc[npcIndex].speak();
+                gamePanel.npc[gamePanel.currentMap][npcIndex].speak();
 
             }
             gamePanel.keyHandler.enterPressed = false;
@@ -199,20 +199,20 @@ public class Player extends Entity {
 
     public void pickUpItem(int index){
         if (index != 999){
-//            String itemName = gamePanel.item[index].name;
-//
-//            switch(itemName){
-//                case "item":
-//                    hasItem ++;
-//                    gamePanel.item[index] = null;
-//                    System.out.println("item: "+ hasItem); // line is not printing. Ask for help
-//                    break;
-//                case "pokeball":
-//                    hasPokeball ++;
-//                    gamePanel.item[index] = null;
-//                    System.out.println("Pokeball: "+ hasPokeball);
-//
-//            }
+            String itemName = gamePanel.item[gamePanel.currentMap][index].name;
+
+            switch(itemName){
+                case "item":
+                    hasItem ++;
+                    gamePanel.item[gamePanel.currentMap][index] = null;
+                    System.out.println("item: "+ hasItem); // line is not printing. Ask for help
+                    break;
+                case "pokeball":
+                    hasPokeball ++;
+                    gamePanel.item[gamePanel.currentMap][index] = null;
+                    System.out.println("Pokeball: "+ hasPokeball);
+
+            }
         }
     }
 

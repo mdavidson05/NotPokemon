@@ -20,7 +20,7 @@ public class NPC_Boy extends Entity {
         direction = "backward";
         speed = 1;
         party = new ArrayList<>();
-        PokemonCreator pokemon1 = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+        PokemonCreator pokemon1 = new PokemonCreator("Charmander", 1,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
         pokemon1.populateStartingMoves();
 
         party.add(pokemon1);

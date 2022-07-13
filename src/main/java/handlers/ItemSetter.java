@@ -1,6 +1,7 @@
 package handlers;
 
 import characters.NPC_Boy;
+import characters.NPC_ProfOak;
 import items.Door;
 import items.Item;
 import items.Pokeball;
@@ -14,7 +15,8 @@ public class ItemSetter {
     }
 
     public void setItem() {
-//        gamePanel.item[0] = new Item();
+        //int mapNumber = 0
+//        gamePanel.item[mapNumber][0] = new Item();
 //        gamePanel.item[0].worldX = 8 * gamePanel.tileSize;
 //        gamePanel.item[0].worldY = 10 * gamePanel.tileSize;
 //
@@ -42,12 +44,32 @@ public class ItemSetter {
 //        gamePanel.item[6].worldX = 6 * gamePanel.tileSize;
 //        gamePanel.item[6].worldY = 12 * gamePanel.tileSize;
 
+        int mapNumber =1;
+        gamePanel.item[mapNumber][0] = new Pokeball();
+        gamePanel.item[mapNumber][0].worldX = 16 * gamePanel.tileSize;
+        gamePanel.item[mapNumber][0].worldY = 4 * gamePanel.tileSize;
+
+        gamePanel.item[mapNumber][1] = new Pokeball();
+        gamePanel.item[mapNumber][1].worldX = 15 * gamePanel.tileSize;
+        gamePanel.item[mapNumber][1].worldY = 4 * gamePanel.tileSize;
+
+        gamePanel.item[mapNumber][2] = new Pokeball();
+        gamePanel.item[mapNumber][2].worldX = 17 * gamePanel.tileSize;
+        gamePanel.item[mapNumber][2].worldY = 4 * gamePanel.tileSize;
+
 
     }
 
     public void setNPC(){
-        gamePanel.npc[0] = new NPC_Boy(gamePanel);
-        gamePanel.npc[0].worldX = gamePanel.tileSize*10;
-        gamePanel.npc[0].worldY = gamePanel.tileSize*10;
+        int mapNumber = 0;
+        gamePanel.npc[mapNumber][0] = new NPC_Boy(gamePanel);
+        gamePanel.npc[mapNumber][0].worldX = gamePanel.tileSize*10;
+        gamePanel.npc[mapNumber][0].worldY = gamePanel.tileSize*10;
+        //if same NPC appears in multiple maps
+        mapNumber = 1;
+        gamePanel.npc[mapNumber][0] = new NPC_ProfOak(gamePanel);
+        gamePanel.npc[mapNumber][0].worldX = gamePanel.tileSize*10;
+        gamePanel.npc[mapNumber][0].worldY = gamePanel.tileSize*10;
+
     }
 }

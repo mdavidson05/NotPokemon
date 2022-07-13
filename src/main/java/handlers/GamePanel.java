@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
+    private int npcMaxMap = 10;
 
     public final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 20;
@@ -40,12 +41,12 @@ public class GamePanel extends JPanel implements Runnable {
     //Collision checker
     public CollisionCheck collisionCheck = new CollisionCheck(this);
     //Items
-    public SuperItem item[] = new SuperItem[10]; //CAN DISPLAY UP 10 X MANY OBJECTS AT THE SAME TIME.
+    public SuperItem item[][] = new SuperItem[npcMaxMap][10]; //CAN DISPLAY UP 10 X MANY OBJECTS AT THE SAME TIME.
     public ItemSetter itemSetter = new ItemSetter(this);
     //UI
     public UI ui = new UI(this);
     //NPCs
-    public Entity npc[] = new Entity[10];
+    public Entity npc[][] = new Entity[npcMaxMap][10];
     //EventHandller
     public EventHandler eventHandler = new EventHandler(this);
 //Fight menu
@@ -136,9 +137,9 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == playState) {
             player.update();
             //NPC
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].update();
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[currentMap][i] != null){
+                    npc[currentMap][i].update();
                 }
             }
         }
@@ -171,16 +172,16 @@ public class GamePanel extends JPanel implements Runnable {
         else{
             tileManager.draw(graphics2);
 
-            for(int i = 0; i < item.length; i++){
-                if(item[i] != null){
-                    item[i].draw(graphics2,this);
+            for(int i = 0; i < item[1].length; i++){
+                if(item[currentMap][i] != null){
+                    item[currentMap][i].draw(graphics2,this);
 
                 }
             }
             //Draw new NPC
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].draw(graphics2);
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[currentMap][i] != null){
+                    npc[currentMap][i].draw(graphics2);
                 }
             }
             player.draw(graphics2);

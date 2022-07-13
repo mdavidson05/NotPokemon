@@ -20,11 +20,14 @@ public class TileManager {
 
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        tile = new Tile[10]; // will expand when developing more areas
+        tile = new Tile[50]; // will expand when developing more areas
         mapTileNumber = new int [gamePanel.maxMap][gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
         loadMap("Maps/NewBarkTownMap.txt", 0);
         loadMap("Maps/OakLab.txt",1);
+        loadMap("Maps/Route1.txt",2);
+        loadMap("Maps/SandTown.txt",3);
+
     }
     public void getTileImage() {
 //initial method before optimised
@@ -42,6 +45,28 @@ public class TileManager {
             setup(7, "Door", false);
             setup(8, "Sand", false);
             setup(9, "water", true);
+            setup(10, "healingmachineTL", true);
+            setup(11, "bin", true);
+            setup(12, "bookcase", true);
+            setup(13, "carpet", false);
+            setup(14, "computerdesk", true);
+            setup(15, "floor", false);
+            setup(16, "tableBR", true);
+            setup(17, "tableM", true);
+            setup(18, "tableTL", true);
+            setup(19, "tableTR", true);
+            setup(20, "tableTM", true);
+            setup(21, "tableBL", true);
+            setup(22, "healingmachineTR", true);
+            setup(23, "healingmachineBL", true);
+            setup(24, "healingmachineBR", true);
+            setup(25, "bollard", true);
+            setup(26, "hedge", true);
+
+
+
+
+
 
 //        }
 //        catch(IOException e){
@@ -79,7 +104,10 @@ public class TileManager {
                 String line = br.readLine();
 
                 while(col < gamePanel.maxWorldCol) {
-                    char numbers[] = line.toCharArray();
+                    String numbers[] = line.split(" ");
+//                    char numbers[] = line.toCharArray();
+
+
 
                     int num = Integer.parseInt(String.valueOf(numbers[col]));
 

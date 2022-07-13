@@ -48,16 +48,19 @@ public class Battle {
             if (npcPokemon.checkHasFainted() == false) {
                 int randomIndex = randomSwap(1, npc.party.size());
                 keyHandler.setTurn(2);
-                switchPokemon(randomIndex,2);
-                if(player.checkHasWon(npc.party) == true){
-                    gamePanel.setGameState(gamePanel.playState);
-                }
+                switchPokemon(randomIndex, 2);
+            }
+            if(player.checkHasWon(npc.party) == true){
+                gamePanel.gameState = gamePanel.playState;
+                gamePanel.update(graphics2);
+//                gamePanel.ui.drawCharacterScreen();
+            } else{changePlayerTurn(playerTurn);}
+
+
 
             }
-            changePlayerTurn(playerTurn);
-        }
 
-        if (playerTurn == 2) {
+        if (playerTurn == 2 && gamePanel.gameState != gamePanel.fightState) {
             ArrayList<Moves> attack = npcPokemon.getMoveList();
             int moveIndex = randomAttack(npcPokemon, 0, 3);
             Moves move = attack.get(moveIndex);
@@ -74,11 +77,14 @@ public class Battle {
             }
 //            playerPokemon.checkHasFainted();
 //            npc.checkHasWon(player.party);
-            changePlayerTurn(playerTurn);
+//            changePlayerTurn(playerTurn);
         }
         if(npc.checkHasWon(player.party) == false) {
             gamePanel.gameState = gamePanel.fightState;
         }
+
+        changePlayerTurn(playerTurn);
+
     }
 
     public int randomAttack(PokemonCreator pokemon, int min, int max){

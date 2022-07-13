@@ -61,12 +61,10 @@ public class Entity {
 //    }
 
     public boolean canFightPlayer(){
-        if(party.size() >=1 ){
+        if(party.size() >=1 && checkHasWon(party) == false){
             canFight = true;
-        }
-        else if(checkHasWon(party) == true){
-            canFight = false;
-        }
+        }else{canFight = false;}
+
         return canFight;
 
     }

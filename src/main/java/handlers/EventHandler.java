@@ -51,17 +51,47 @@ public class EventHandler {
 //
 
         if (canTouchEvent == true) {
-            if (hit(0,7, 4, "any") == true) {
-                System.out.println("hit");
-                teleport(1,12,13);
+            if (hit(0, 6, 4, "any") == true) {
+//                System.out.println("hit");
+                teleport(1, 12, 13);
 //
-            }
-            else if (hit(1,12, 13, "any") == true) {
+            } else if (hit(1, 7, 15, "any") == true) {
                 System.out.println("hit");
-                teleport(0,4,7);
-//
+                teleport(0, 6, 5);
+            } else if (hit(1, 8, 15, "any") == true) {
+                System.out.println("hit");
+                teleport(0, 6, 5);
+            } else if (hit(1, 8, 15, "any") == true) {
+                    System.out.println("hit");
+                    teleport(0, 6, 5);
+            } else if (hit(0, 1, 10, "any") == true) {
+                System.out.println("hit");
+                teleport(2, 17, 6);
             }
-
+            else if (hit(0, 1, 9, "any") == true) {
+                System.out.println("hit");
+                teleport(2, 17, 10);
+            }
+            else if (hit(2, 0, 9, "any") == true) {
+                System.out.println("hit");
+                teleport(3, 8, 8);
+            }
+            else if (hit(2, 0, 8, "any") == true) {
+                System.out.println("hit");
+                teleport(3, 8, 8);
+            }
+            else if (hit(2, 0, 10, "any") == true) {
+                System.out.println("hit");
+                teleport(3, 8, 8);
+            }
+            else if (hit(2, 18, 10, "any") == true) {
+                System.out.println("hit");
+                teleport(0, 2, 9);
+            }
+            else if (hit(3, 8, 8, "any") == true) {
+                System.out.println("hit");
+                teleport(2, 1, 9);
+            }
         }
     }
 

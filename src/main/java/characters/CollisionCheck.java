@@ -69,21 +69,21 @@ public class CollisionCheck {
     public int checkItem(Entity entity, boolean player) {
         int index = 999;
 
-        for(int i = 0; i < gamePanel.item.length; i++) {
-            if (gamePanel.item[i] != null) {
+        for(int i = 0; i < gamePanel.item[1].length; i++) {
+            if (gamePanel.item[gamePanel.currentMap][i] != null) {
                 //get entity hitbox position
                 entity.playerHitbox.x = entity.worldX + entity.playerHitbox.x;
                 entity.playerHitbox.y = entity.worldY + entity.playerHitbox.y;
                 //get item hitbox
-                gamePanel.item[i].solidArea.x = gamePanel.item[i].worldX + gamePanel.item[i].solidArea.x;
-                gamePanel.item[i].solidArea.y = gamePanel.item[i].worldY + gamePanel.item[i].solidArea.y;
+                gamePanel.item[gamePanel.currentMap][i].solidArea.x = gamePanel.item[gamePanel.currentMap][i].worldX + gamePanel.item[gamePanel.currentMap][i].solidArea.x;
+                gamePanel.item[gamePanel.currentMap][i].solidArea.y = gamePanel.item[gamePanel.currentMap][i].worldY + gamePanel.item[gamePanel.currentMap][i].solidArea.y;
 
                 switch (entity.direction) {
                     case "forward":
                         entity.playerHitbox.y -= entity.speed;
-                        if (entity.playerHitbox.intersects(gamePanel.item[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(gamePanel.item[gamePanel.currentMap][i].solidArea)) {
                             // intersects checks if two objects are colliding
-                            if(gamePanel.item[i].collision == true){
+                            if(gamePanel.item[gamePanel.currentMap][i].collision == true){
                                 entity.collisionOn = true;
                                 if(player == true){
                                     index = i;
@@ -93,10 +93,10 @@ public class CollisionCheck {
                         break;
                     case "backward":
                         entity.playerHitbox.y += entity.speed;
-                        if (entity.playerHitbox.intersects(gamePanel.item[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(gamePanel.item[gamePanel.currentMap][i].solidArea)) {
                             // intersects checks if two objects are colliding
 //                            System.out.println("backward collision");
-                            if(gamePanel.item[i].collision == true){
+                            if(gamePanel.item[gamePanel.currentMap][i].collision == true){
                                 entity.collisionOn = true;
                                 if(player == true){
                                     index = i;
@@ -106,8 +106,8 @@ public class CollisionCheck {
                         break;
                     case "left":
                         entity.playerHitbox.x -= entity.speed;
-                        if (entity.playerHitbox.intersects(gamePanel.item[i].solidArea)) {
-                            if(gamePanel.item[i].collision == true){
+                        if (entity.playerHitbox.intersects(gamePanel.item[gamePanel.currentMap][i].solidArea)) {
+                            if(gamePanel.item[gamePanel.currentMap][i].collision == true){
                                 entity.collisionOn = true;
                                 if(player == true){
                                     index = i;
@@ -116,9 +116,9 @@ public class CollisionCheck {
                         break;
                     case "right":
                         entity.playerHitbox.x += entity.speed;
-                        if (entity.playerHitbox.intersects(gamePanel.item[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(gamePanel.item[gamePanel.currentMap][i].solidArea)) {
                             // intersects checks if two objects are colliding
-                            if(gamePanel.item[i].collision == true){
+                            if(gamePanel.item[gamePanel.currentMap][i].collision == true){
                                 entity.collisionOn = true;
                                 if(player == true){
                                     index = i;
@@ -129,8 +129,8 @@ public class CollisionCheck {
                 }
                 entity.playerHitbox.x = entity.solidAreaDefaultX;
                 entity.playerHitbox.y = entity.solidAreaDefaultY;
-                gamePanel.item[i].solidArea.x = gamePanel.item[i].solidAreaDefaultX;
-                gamePanel.item[i].solidArea.y = gamePanel.item[i].solidAreaDefaultY;
+                gamePanel.item[gamePanel.currentMap][i].solidArea.x = gamePanel.item[gamePanel.currentMap][i].solidAreaDefaultX;
+                gamePanel.item[gamePanel.currentMap][i].solidArea.y = gamePanel.item[gamePanel.currentMap][i].solidAreaDefaultY;
 
             }
         }
@@ -139,22 +139,22 @@ public class CollisionCheck {
     }
 
     //NPC Collision
-    public int checkEntity(Entity entity, Entity[] target){
+    public int checkEntity(Entity entity, Entity[][] target){
         int index = 999;
 
-        for(int i = 0; i < target.length; i++) {
-            if (target[i] != null) {
+        for(int i = 0; i < target[1].length; i++) {
+            if (target[gamePanel.currentMap][i] != null) {
                 //get entity hitbox position
                 entity.playerHitbox.x = entity.worldX + entity.playerHitbox.x;
                 entity.playerHitbox.y = entity.worldY + entity.playerHitbox.y;
                 //get item hitbox
-                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
-                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+                target[gamePanel.currentMap][i].solidArea.x = target[gamePanel.currentMap][i].worldX + target[gamePanel.currentMap][i].solidArea.x;
+                target[gamePanel.currentMap][i].solidArea.y = target[gamePanel.currentMap][i].worldY + target[gamePanel.currentMap][i].solidArea.y;
 
                 switch (entity.direction) {
                     case "forward":
                         entity.playerHitbox.y -= entity.speed;
-                        if (entity.playerHitbox.intersects(target[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(target[gamePanel.currentMap][i].solidArea)) {
                             // intersects checks if two objects are colliding
                                 entity.collisionOn = true;
                                 index = i;
@@ -164,7 +164,7 @@ public class CollisionCheck {
 
                     case "backward":
                         entity.playerHitbox.y += entity.speed;
-                        if (entity.playerHitbox.intersects(target[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(target[gamePanel.currentMap][i].solidArea)) {
                             // intersects checks if two objects are colliding
 //                            System.out.println("backward collision");
                                 entity.collisionOn = true;
@@ -173,14 +173,14 @@ public class CollisionCheck {
                         break;
                     case "left":
                         entity.playerHitbox.x -= entity.speed;
-                        if (entity.playerHitbox.intersects(target[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(target[gamePanel.currentMap][i].solidArea)) {
                                 entity.collisionOn = true;
                             index = i;
                         }
                         break;
                     case "right":
                         entity.playerHitbox.x += entity.speed;
-                        if (entity.playerHitbox.intersects(target[i].solidArea)) {
+                        if (entity.playerHitbox.intersects(target[gamePanel.currentMap][i].solidArea)) {
                             // intersects checks if wtwo objects are colliding
                                 entity.collisionOn = true;
                             index = i;
@@ -190,8 +190,8 @@ public class CollisionCheck {
                 }
                 entity.playerHitbox.x = entity.solidAreaDefaultX;
                 entity.playerHitbox.y = entity.solidAreaDefaultY;
-                target[i].solidArea.x = target[i].solidAreaDefaultX;
-                target[i].solidArea.y = target[i].solidAreaDefaultY;
+                target[gamePanel.currentMap][i].solidArea.x = target[gamePanel.currentMap][i].solidAreaDefaultX;
+                target[gamePanel.currentMap][i].solidArea.y = target[gamePanel.currentMap][i].solidAreaDefaultY;
 
             }
         }
