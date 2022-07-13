@@ -85,8 +85,9 @@ public class Entity {
         }
 
     public void setBattleSlot(){
+        if(party.size() >0){
         battleSlot.add(party.get(0));
-    }
+    }}
 
 //    public PokemonCreator selectPokemon(){
 //        //need to figure out player input

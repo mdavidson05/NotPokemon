@@ -201,7 +201,77 @@ public class CollisionCheck {
 
         return index;
     }
+    public int checkPokeball(Entity entity, boolean player) {
+        int index = 999;
 
+        for(int i = 0; i < gamePanel.pokeball[1].length; i++) {
+            if (gamePanel.pokeball[gamePanel.currentMap][i] != null) {
+                //get entity hitbox position
+                entity.playerHitbox.x = entity.worldX + entity.playerHitbox.x;
+                entity.playerHitbox.y = entity.worldY + entity.playerHitbox.y;
+                //get item hitbox
+                gamePanel.pokeball[gamePanel.currentMap][i].solidArea.x = gamePanel.pokeball[gamePanel.currentMap][i].worldX + gamePanel.pokeball[gamePanel.currentMap][i].solidArea.x;
+                gamePanel.pokeball[gamePanel.currentMap][i].solidArea.y = gamePanel.pokeball[gamePanel.currentMap][i].worldY + gamePanel.pokeball[gamePanel.currentMap][i].solidArea.y;
+
+                switch (entity.direction) {
+                    case "forward":
+                        entity.playerHitbox.y -= entity.speed;
+                        if (entity.playerHitbox.intersects(gamePanel.pokeball[gamePanel.currentMap][i].solidArea)) {
+                            // intersects checks if two objects are colliding
+                            if(gamePanel.pokeball[gamePanel.currentMap][i].collision == true){
+                                entity.collisionOn = true;
+                                if(player == true){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "backward":
+                        entity.playerHitbox.y += entity.speed;
+                        if (entity.playerHitbox.intersects(gamePanel.pokeball[gamePanel.currentMap][i].solidArea)) {
+                            // intersects checks if two objects are colliding
+//                            System.out.println("backward collision");
+                            if(gamePanel.pokeball[gamePanel.currentMap][i].collision == true){
+                                entity.collisionOn = true;
+                                if(player == true){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.playerHitbox.x -= entity.speed;
+                        if (entity.playerHitbox.intersects(gamePanel.pokeball[gamePanel.currentMap][i].solidArea)) {
+                            if(gamePanel.pokeball[gamePanel.currentMap][i].collision == true){
+                                entity.collisionOn = true;
+                                if(player == true){
+                                    index = i;
+                                }
+                            }}
+                        break;
+                    case "right":
+                        entity.playerHitbox.x += entity.speed;
+                        if (entity.playerHitbox.intersects(gamePanel.pokeball[gamePanel.currentMap][i].solidArea)) {
+                            // intersects checks if two objects are colliding
+                            if(gamePanel.pokeball[gamePanel.currentMap][i].collision == true){
+                                entity.collisionOn = true;
+                                if(player == true){
+                                    index = i;
+                                }
+                                break;
+                            }}
+
+                }
+                entity.playerHitbox.x = entity.solidAreaDefaultX;
+                entity.playerHitbox.y = entity.solidAreaDefaultY;
+                gamePanel.pokeball[gamePanel.currentMap][i].solidArea.x = gamePanel.pokeball[gamePanel.currentMap][i].solidAreaDefaultX;
+                gamePanel.pokeball[gamePanel.currentMap][i].solidArea.y = gamePanel.pokeball[gamePanel.currentMap][i].solidAreaDefaultY;
+
+            }
+        }
+
+        return index;
+    }
     public void checkPlayer(Entity entity){
         int index = 999;
                 //get entity hitbox position
@@ -250,6 +320,9 @@ public class CollisionCheck {
         gamePanel.player.solidArea.y = gamePanel.player.solidAreaDefaultY;
 
             }
+
+            //Pokeball collision
+
         }
 
 

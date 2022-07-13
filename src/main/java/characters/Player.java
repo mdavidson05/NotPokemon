@@ -1,18 +1,12 @@
 package characters;
 
-import handlers.GamePanel;
-import handlers.KeyHandler;
-import handlers.Scaling;
-import handlers.UI;
-import items.Item;
+import handlers.*;
+import handlers.Pokeball;
 import pokemon.PokemonCreator;
 import pokemon.PokemonTypes;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Entity {
@@ -42,6 +36,8 @@ public class Player extends Entity {
         inFight = false;
 
 
+
+
         setDefaultValues();
         getPlayerImage();
 
@@ -57,22 +53,42 @@ public class Player extends Entity {
         speed = 4;
         direction = "backward";
         setItems();
-        PokemonCreator pokemon1 = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
-        PokemonCreator pokemon2 = new PokemonCreator("Charmeleon", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
-        PokemonCreator pokemon3 = new PokemonCreator("Charizard", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
-        PokemonCreator pokemon4 = new PokemonCreator("Blastoise", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+//        PokemonCreator pokemon1 = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+//        PokemonCreator pokemon2 = new PokemonCreator("Charmeleon", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+//        PokemonCreator pokemon3 = new PokemonCreator("Charizard", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+//        PokemonCreator pokemon4 = new PokemonCreator("Blastoise", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
 
-        pokemon1.populateStartingMoves();
-        pokemon2.populateStartingMoves();
-        pokemon3.populateStartingMoves();
-        pokemon4.populateStartingMoves();
 
-        party.add(pokemon1);
-        party.add(pokemon2);
-        party.add(pokemon3);
-        party.add(pokemon4);
+//        pokemon4.populateStartingMoves();
+
+//        party.add(pokemon1);
+//        party.add(pokemon2);
+//        party.add(pokemon3);
+//        party.add(pokemon4);
 
         setBattleSlot();
+    }
+
+    public PokemonCreator getStartingPokemon(int index){
+        PokemonCreator selected = null;
+        if(index == 0){
+            PokemonCreator charmander = new PokemonCreator("Charmander", 20,1, PokemonTypes.FIRE, 5,true,1,10,moveSet, baseStats);
+            charmander.populateStartingMoves();
+            selected = charmander;
+        }
+        if(index == 1){
+            PokemonCreator squirtle = new PokemonCreator("Squirtle", 20,1, PokemonTypes.WATER, 5,true,1,10,moveSet, baseStats);
+            squirtle.populateStartingMoves();
+
+            selected = squirtle;
+        }
+        if(index == 2){
+            PokemonCreator bulbasaur = new PokemonCreator("Bulbasaur", 20,1, PokemonTypes.GRASS, 5,true,1,10,moveSet, baseStats);
+            bulbasaur.populateStartingMoves();
+
+            selected=  bulbasaur;
+        }
+        return selected;
     }
 
     public void setItems(){
@@ -128,13 +144,17 @@ public class Player extends Entity {
                 direction = "right";
 
             }
+            collisionOn = false;
 
             //CHECK OBJECT COLLISION
             int itemIndex = gamePanel.collisionCheck.checkItem(this, true);
             pickUpItem(itemIndex);
 
+            //PickUp pokemon collision
+            int pokemonIndex = gamePanel.collisionCheck.checkPokeball(this, true);
+            pickUpPokeball(pokemonIndex);
+
             //Test tile collision
-            collisionOn = false;
             gamePanel.collisionCheck.checkTile(this);
 
             //Check NPC collision
@@ -215,8 +235,29 @@ public class Player extends Entity {
                     System.out.println("item: "+ hasItem); // line is not printing. Ask for help
                     break;
                 case "pokeball":
-                    hasPokeball ++;
+                    Pokeball starter = gamePanel.pokeball[gamePanel.currentMap][index];
+                    gamePanel.player.party.add(starter);
+//                    gamePanel.player.party.add(gamePanel.item[gamePanel.currentMap][index])
                     gamePanel.item[gamePanel.currentMap][index] = null;
+//                    System.out.println("Pokeball: "+ hasPokeball);
+
+            }
+        }
+    }
+    public void pickUpPokeball(int index){
+        if (index != 999){
+            String pokeballName = gamePanel.pokeball[gamePanel.currentMap][index].name;
+
+            switch(pokeballName){
+                case "pokeball":
+                    Pokeball starter = gamePanel.pokeball[gamePanel.currentMap][index];
+                    gamePanel.player.party.add(starter);
+                    if(gamePanel.player.party.size() <= 1 ) {
+                        PokemonCreator selectedStarter = gamePanel.player.party.get(0);
+                        battleSlot.add(selectedStarter);
+                    }
+//                    gamePanel.player.party.add(gamePanel.item[gamePanel.currentMap][index])
+                    gamePanel.pokeball[gamePanel.currentMap][index] = null;
                     System.out.println("Pokeball: "+ hasPokeball);
 
             }

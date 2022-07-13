@@ -404,46 +404,47 @@ public class Battle {
         y += gamePanel.tileSize*4;
         graphics2.drawString(displayInfo, x, y);
 //        graphics2.drawString(">", x - gamePanel.tileSize, y);
-
-        if(commandNumber == 0){
-            graphics2.drawString(">", x - gamePanel.tileSize, y);
-        }
-        String pokemonName1 = player.party.get(1).name;
-        int pokemonHPNum1 = player.party.get(1).hp;
-        String pokemonHP1 = String.valueOf(pokemonHPNum1);
-        String displayInfo1 = pokemonName1 + " hp: " + pokemonHP1;
-        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
-        x = getXforCenterText(displayInfo1, gamePanel, graphics2);
-        y += gamePanel.tileSize;
-        graphics2.drawString(displayInfo1, x, y);
-        if(commandNumber == 1){
-            graphics2.drawString(">", x - gamePanel.tileSize, y);
-        }
-
-        String pokemonName2 = player.party.get(2).name;
-        int pokemonHPNum2 = player.party.get(2).hp;
-        String pokemonHP2 = String.valueOf(pokemonHPNum2);
-        String displayInfo2 = pokemonName2 + " hp: " + pokemonHP2;
-        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
-        x = getXforCenterText(displayInfo2, gamePanel, graphics2);
-        y += gamePanel.tileSize;
-        graphics2.drawString(displayInfo2, x, y);
-        if(commandNumber == 2){
-            graphics2.drawString(">", x - gamePanel.tileSize, y);
-        }
-
-        String pokemonName3 = player.party.get(3).name;
-        int pokemonHPNum3 = player.party.get(3).hp;
-        String pokemonHP3 = String.valueOf(pokemonHPNum3);
-        String displayInfo3 = pokemonName3 + " hp: " + pokemonHP3;
-        graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
-        x = getXforCenterText(displayInfo3, gamePanel, graphics2);
-        y += gamePanel.tileSize;
-        graphics2.drawString(displayInfo3, x, y);
-        if(commandNumber == 3){
-            graphics2.drawString(">", x - gamePanel.tileSize, y);
-        }
-
+        if(player.party.size() >1) {
+            if (commandNumber == 0) {
+                graphics2.drawString(">", x - gamePanel.tileSize, y);
+            }
+            String pokemonName1 = player.party.get(1).name;
+            int pokemonHPNum1 = player.party.get(1).hp;
+            String pokemonHP1 = String.valueOf(pokemonHPNum1);
+            String displayInfo1 = pokemonName1 + " hp: " + pokemonHP1;
+            graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+            x = getXforCenterText(displayInfo1, gamePanel, graphics2);
+            y += gamePanel.tileSize;
+            graphics2.drawString(displayInfo1, x, y);
+            if (commandNumber == 1) {
+                graphics2.drawString(">", x - gamePanel.tileSize, y);
+            }
+            if(player.party.size() >2) {
+                String pokemonName2 = player.party.get(2).name;
+                int pokemonHPNum2 = player.party.get(2).hp;
+                String pokemonHP2 = String.valueOf(pokemonHPNum2);
+                String displayInfo2 = pokemonName2 + " hp: " + pokemonHP2;
+                graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+                x = getXforCenterText(displayInfo2, gamePanel, graphics2);
+                y += gamePanel.tileSize;
+                graphics2.drawString(displayInfo2, x, y);
+                if (commandNumber == 2) {
+                    graphics2.drawString(">", x - gamePanel.tileSize, y);
+                }
+                if (player.party.size() > 3) {
+                    String pokemonName3 = player.party.get(3).name;
+                    int pokemonHPNum3 = player.party.get(3).hp;
+                    String pokemonHP3 = String.valueOf(pokemonHPNum3);
+                    String displayInfo3 = pokemonName3 + " hp: " + pokemonHP3;
+                    graphics2.setFont(graphics2.getFont().deriveFont(Font.BOLD, 48F));
+                    x = getXforCenterText(displayInfo3, gamePanel, graphics2);
+                    y += gamePanel.tileSize;
+                    graphics2.drawString(displayInfo3, x, y);
+                    if (commandNumber == 3) {
+                        graphics2.drawString(">", x - gamePanel.tileSize, y);
+                    }
+                }
+            }}
     }
 
     public Entity getPlayer() {

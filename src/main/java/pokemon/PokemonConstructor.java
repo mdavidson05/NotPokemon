@@ -1,5 +1,10 @@
 package pokemon;
 
+import handlers.GamePanel;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public enum PokemonConstructor {
 
     CHARMANDER(1, 2, 15),
@@ -17,6 +22,10 @@ public enum PokemonConstructor {
     //enum class
     private final int evolvesIntoID;
     private final int evolvesAtLevel;
+    public int worldX, worldY;
+    public BufferedImage image;
+
+
 
     PokemonConstructor(int pokeID, int evolvesIntoID, int evolvesAtLevel) {
         this.pokeID = pokeID;
@@ -35,6 +44,22 @@ public enum PokemonConstructor {
 
     public int getEvolvesAtLevel() {
         return evolvesAtLevel;
+    }
+
+    public void draw(Graphics2D graphics2, GamePanel gamePanel) {
+        int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenY;
+        int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+
+
+        //Dynamic rendering loop. Remember to fix the boundaries
+        if(worldX + gamePanel.tileSize >gamePanel.player.worldX - gamePanel.player.screenX &&
+                worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX &&
+                worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY &&
+                worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY){
+
+            graphics2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+//should be screenX and Screen Y instead of 0, 0
+        }
     }
 
 //    public Handlers.PokemonTypes[] getPokemonTypes() {

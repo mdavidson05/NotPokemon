@@ -43,6 +43,12 @@ public class GamePanel extends JPanel implements Runnable {
     //Items
     public SuperItem item[][] = new SuperItem[npcMaxMap][10]; //CAN DISPLAY UP 10 X MANY OBJECTS AT THE SAME TIME.
     public ItemSetter itemSetter = new ItemSetter(this);
+//    private PokemonCreator nullpokemon = new PokemonCreator("blah", 1, 1, PokemonTypes.FIRE, 1, true, 234, 234, PokemonCreator.getMoveList(), PokemonCreator.getBaseStats() )
+    public StartingPokemonSetter pokemonSetter = new StartingPokemonSetter(this);
+
+    //Random Pokemon
+    public Pokeball pokeball[][] = new Pokeball[npcMaxMap][10]; //CAN DISPLAY UP 10 X MANY OBJECTS AT THE SAME TIME.
+
     //UI
     public UI ui = new UI(this);
     //NPCs
@@ -94,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame(){
         itemSetter.setItem();
         itemSetter.setNPC();
+        pokemonSetter.setPokemon();
 
         gameState = titleState;
     }
@@ -186,7 +193,16 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[currentMap][i].draw(graphics2);
                 }
             }
+            //Draw starting Pokemon
+            for(int i = 0; i < pokeball[1].length; i++){
+                if(pokeball[currentMap][i] != null){
+                    pokeball[currentMap][i].draw(graphics2,this);
+
+                }
+            }
             player.draw(graphics2);
+
+
 
             ui.draw(graphics2);
 
