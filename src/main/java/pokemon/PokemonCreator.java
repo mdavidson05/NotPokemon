@@ -67,6 +67,9 @@ public class PokemonCreator extends pokemon.Pokemon {
         } else if (this.pokemonTypes == PokemonTypes.GRASS) {
             this.moveList = StartingMoves.lookup.get(PokemonTypes.GRASS);
 
+        } else if (this.pokemonTypes == PokemonTypes.FIRE) {
+            this.moveList = StartingMoves.lookup.get(PokemonTypes.GRASS);
+
         }
 
 

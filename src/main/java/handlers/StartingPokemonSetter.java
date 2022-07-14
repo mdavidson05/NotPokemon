@@ -51,6 +51,11 @@ public class StartingPokemonSetter {
         gamePanel.pokeball[mapNumber][2].worldX = 17 * gamePanel.tileSize;
         gamePanel.pokeball[mapNumber][2].worldY = 4 * gamePanel.tileSize;
 
+        mapNumber =3;
+        gamePanel.pokeball[mapNumber][3] = new Pokeball(gamePanel, gamePanel.player.getStartingPokemon(3));
+        gamePanel.pokeball[mapNumber][3].worldX = 16 * gamePanel.tileSize;
+        gamePanel.pokeball[mapNumber][3].worldY = 4 * gamePanel.tileSize;
+
 
     }
 

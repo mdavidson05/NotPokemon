@@ -65,29 +65,29 @@ public class NPC_Prophet extends Entity {
 
     }
 
-//    public void setAction() {
-//
-//        actionCounter++;
-//
-//        if (actionCounter == 120) {
-//
-//
-//            Random random = new Random();
-//            int randomNumber = random.nextInt(100) + 1; // pick random number
-//            if (randomNumber <= 25) {
-//                direction = "forward";
-//            }
-//            if (randomNumber > 25 && randomNumber <= 50) {
-//                direction = "backward";
-//            }
-//            if (randomNumber > 50 && randomNumber <= 75) {
-//                direction = "left";
-//            }
-//            if (randomNumber > 75 && randomNumber <= 100) {
-//                direction = "right";
-//            }
-//
-//            actionCounter = 0;
-//        }
-//    }
+    public void setAction() {
+
+        actionCounter++;
+
+        if (actionCounter == 120) {
+
+
+            Random random = new Random();
+            int randomNumber = random.nextInt(100) + 1; // pick random number
+            if (randomNumber <= 25) {
+                direction = "forward";
+            }
+            if (randomNumber > 25 && randomNumber <= 50) {
+                direction = "backward";
+            }
+            if (randomNumber > 50 && randomNumber <= 75) {
+                direction = "left";
+            }
+            if (randomNumber > 75 && randomNumber <= 100) {
+                direction = "right";
+            }
+
+            actionCounter = 0;
+        }
+    }
 }

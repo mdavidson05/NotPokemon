@@ -77,16 +77,22 @@ public class Player extends Entity {
             selected = charmander;
         }
         if(index == 1){
-            PokemonCreator squirtle = new PokemonCreator("Squirtle", 20,1, PokemonTypes.WATER, 5,true,1,10,moveSet, baseStats);
+            PokemonCreator squirtle = new PokemonCreator("Squirtle", 20,1, PokemonTypes.WATER, 5,true,2,10,moveSet, baseStats);
             squirtle.populateStartingMoves();
 
             selected = squirtle;
         }
         if(index == 2){
-            PokemonCreator bulbasaur = new PokemonCreator("Bulbasaur", 20,1, PokemonTypes.GRASS, 5,true,1,10,moveSet, baseStats);
+            PokemonCreator bulbasaur = new PokemonCreator("Bulbasaur", 20,1, PokemonTypes.GRASS, 5,true,3,10,moveSet, baseStats);
             bulbasaur.populateStartingMoves();
 
             selected=  bulbasaur;
+        }
+        if(index == 3){
+            PokemonCreator charizard = new PokemonCreator("Charizard", 100,1, PokemonTypes.FIRE, 5,true,4,50,moveSet, baseStats);
+            charizard.populateStartingMoves();
+
+            selected=  charizard;
         }
         return selected;
     }
